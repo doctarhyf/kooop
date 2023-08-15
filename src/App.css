@@ -1,0 +1,12 @@
+ul.links-cont li {
+  padding: 0 1rem;
+  border-radius: 0.45em;
+  cursor: pointer;
+  height: 2em;
+  line-height: 2em;
+  transition: all ease-in-out 0.25s;
+}
+
+ul.links-cont li:hover {
+  background-color: rgb(71, 71, 71);
+}
