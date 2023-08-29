@@ -1,12 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import koop from "../assets/koop.png";
 import { GenKoop } from "./utils/utils";
+import { AddKoop, LoadItems, SaveItem } from "./db/db";
 
 function App() {
   const [q, setq] = useState("");
   const [koops, setKoops] = useState([]);
   const [koopsFiltered, setKoopsFiltered] = useState([]);
   const [qmode, setqMode] = useState("post");
+
+  useEffect(() => {
+    loadKoops();
+
+    async function loadKoops() {
+      const koops = await LoadItems();
+      setKoops(koops);
+      console.log(koops);
+      //console.log(koops.map((k, i) => ( { ...koop, date: new Date(k.date.seconds) } ) );
+    }
+  }, []);
 
   function onSearch(e) {
     let q = e.target.value;
@@ -15,11 +27,15 @@ function App() {
     // console.log(koops.map((it, x) => it.text.legnth > 0));
   }
 
-  function addq(s) {
+  async function addq(s) {
     if (qmode === "post") {
       let newKoop = GenKoop(s, false, new Date());
 
       setKoops((old) => [...koops, newKoop]);
+
+      let res = await AddKoop(newKoop);
+      console.log(SaveItem("add", res, newKoop));
+
       setq("");
     }
   }
@@ -60,7 +76,7 @@ function App() {
           </div>
         </div>
       </div>
-      {qmode === "search" && (
+      {qmode /* === "search" */ && (
         <div>
           {koops.reverse().map((it, i) => (
             <div
