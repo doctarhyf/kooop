@@ -1,12 +1,26 @@
+ul.links-cont {
+  display: flex;
+  flex-direction: row;
+  margin-right: 1rem;
+}
+
 ul.links-cont li {
   padding: 0 1rem;
+  margin-left: 1rem;
   border-radius: 0.45em;
   cursor: pointer;
-  height: 2em;
+  height: 40px;
+  line-height: 40px;
   line-height: 2em;
   transition: all ease-in-out 0.25s;
 }
 
 ul.links-cont li:hover {
   background-color: rgb(71, 71, 71);
+}
+
+.main-cont {
+  margin: 0;
+  position: relative;
+  height: calc(100vh - 40px);
 }

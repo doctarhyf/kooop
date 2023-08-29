@@ -1,39 +1,86 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import koop from "../assets/koop.png";
+import { GenKoop } from "./utils/utils";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [q, setq] = useState("");
+  const [koops, setKoops] = useState([]);
+  const [koopsFiltered, setKoopsFiltered] = useState([]);
+  const [qmode, setqMode] = useState("post");
+
+  function onSearch(e) {
+    let q = e.target.value;
+
+    setq(q);
+    // console.log(koops.map((it, x) => it.text.legnth > 0));
+  }
+
+  function addq(s) {
+    if (qmode === "post") {
+      let newKoop = GenKoop(s, false, new Date());
+
+      setKoops((old) => [...koops, newKoop]);
+      setq("");
+    }
+  }
 
   return (
-    <div>
-      <nav className="flex  justify-between bg-slate-500 text-white p-4">
-        <img src={viteLogo} />
-        <ul className="links-cont flex  gap-4 ">
-          <li>Home</li>
-          <li>History</li>
-          <li>Likes</li>
-          <li>Account</li>
-        </ul>
-      </nav>
+    <div className="bg-sky-500 flex flex-col items-center h-[100vh]">
+      <div>{qmode}</div>
+      <div>
+        <img src={koop} />
 
-      <main>
-        <div className="flex mt-8 flex-col gap-8 justify-center items-center">
-          <img src={reactLogo} width={180} />
-
-          <div className="rounded-full h-[2rem] outline outline-1">
-            <input
-              placeholder="search ..."
-              className=" outline-none min-w-[60%]  rounded-l-full h-[2rem] outline-1 p-2 "
-              type="search"
-            />
-            <button className=" hover:bg-sky-500 hover:text-white h-[2rem] w-[4rem] rounded-r-full">
-              Q
+        <div>
+          <div>
+            <button name="search" onClick={(e) => setqMode(e.target.name)}>
+              Search
+            </button>
+            <button name="post" onClick={(e) => setqMode(e.target.name)}>
+              Post
             </button>
           </div>
+          <div className="cont-search">
+            <input
+              onKeyUp={(e) => {
+                e.keyCode === 13 && addq(e.target.value);
+              }}
+              value={q}
+              onChange={onSearch}
+              type="text"
+              placeholder="search"
+            />
+
+            <div>
+              <input type="checkbox" />
+              Budget
+              <input type="checkbox" />
+              Date
+            </div>
+            {qmode === "post" && <button onClick={(e) => addq(q)}>POST</button>}
+          </div>
         </div>
-      </main>
+      </div>
+      {qmode === "search" && (
+        <div>
+          {koops.reverse().map((it, i) => (
+            <div
+              key={i}
+              className="p-1 group cursor-pointer hover:bg-white hover:text-sky-500"
+            >
+              <div>
+                <div>{it.text}</div>
+                <div className="text-sm group-hover:text-black text-white/50">
+                  {it.date.toString()}
+                </div>
+              </div>
+              <div className="group-hover:visible invisible">
+                <button>Contact</button>
+                <button>Add to Fav</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
