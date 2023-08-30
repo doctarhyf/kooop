@@ -2,101 +2,168 @@ import { useEffect, useState } from "react";
 import koop from "../assets/koop.png";
 import { GenKoop } from "./utils/utils";
 import { AddKoop, LoadItems, SaveItem } from "./db/db";
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
-  const [q, setq] = useState("");
-  const [koops, setKoops] = useState([]);
-  const [koopsFiltered, setKoopsFiltered] = useState([]);
-  const [qmode, setqMode] = useState("post");
+  const [mode, setMode] = useState("s");
+  const [koopOptions, setKoopOptions] = useState({
+    budget: undefined,
+    date: undefined,
+    location: undefined,
+    media: undefined,
+  });
 
-  useEffect(() => {
-    loadKoops();
+  useEffect(() => {}, []);
 
-    async function loadKoops() {
-      const koops = await LoadItems();
-      setKoops(koops);
-      console.log(koops);
-      //console.log(koops.map((k, i) => ( { ...koop, date: new Date(k.date.seconds) } ) );
-    }
-  }, []);
+  function onSetMode(m) {
+    setMode(m);
 
-  function onSearch(e) {
-    let q = e.target.value;
-
-    setq(q);
-    // console.log(koops.map((it, x) => it.text.legnth > 0));
+    console.log("cur mode ", mode);
   }
 
-  async function addq(s) {
-    if (qmode === "post") {
-      let newKoop = GenKoop(s, false, new Date());
-
-      setKoops((old) => [...koops, newKoop]);
-
-      let res = await AddKoop(newKoop);
-      console.log(SaveItem("add", res, newKoop));
-
-      setq("");
-    }
+  function onSetKoopOption(e) {
+    console.log(e);
   }
 
   return (
-    <div className="bg-sky-500 flex flex-col items-center h-[100vh]">
-      <div>{qmode}</div>
-      <div>
+    <div className="">
+      <div className="cont-logo bg-sky-500 flex justify-center">
         <img src={koop} />
+      </div>
 
-        <div>
-          <div>
-            <button name="search" onClick={(e) => setqMode(e.target.name)}>
+      <main className="p-4">
+        <section className="sect-search">
+          <div className="cont-search-mode">
+            <button
+              className={`${
+                mode === "s" ? " bg-sky-500 text-white " : "  "
+              } hover:bg-sky-500 hover:text-white  p-1 rounded-t-lg `}
+              onClick={(e) => onSetMode("s")}
+            >
               Search
             </button>
-            <button name="post" onClick={(e) => setqMode(e.target.name)}>
+            <button
+              className={`  ${
+                mode === "p" ? " bg-sky-500 text-white " : ""
+              }  p-1 hover:bg-sky-500 hover:text-white rounded-t-lg`}
+              onClick={(e) => onSetMode("p")}
+            >
               Post
             </button>
           </div>
-          <div className="cont-search">
+          <div
+            className={` ${
+              mode === "p" ? "rounded-lg" : ""
+            } cont-search-input bg-sky-500 p-2 rounded-b-lg rounded-r-lg `}
+          >
             <input
-              onKeyUp={(e) => {
-                e.keyCode === 13 && addq(e.target.value);
-              }}
-              value={q}
-              onChange={onSearch}
-              type="text"
-              placeholder="search"
+              type="search"
+              placeholder={` ${
+                mode === "s" ? "search koops ..." : "post new koop ..."
+              } `}
             />
-
-            <div>
-              <input type="checkbox" />
-              Budget
-              <input type="checkbox" />
-              Date
-            </div>
-            {qmode === "post" && <button onClick={(e) => addq(q)}>POST</button>}
+            <span>Q</span>
           </div>
-        </div>
-      </div>
-      {qmode /* === "search" */ && (
-        <div>
-          {koops.reverse().map((it, i) => (
-            <div
-              key={i}
-              className="p-1 group cursor-pointer hover:bg-white hover:text-sky-500"
-            >
-              <div>
-                <div>{it.text}</div>
-                <div className="text-sm group-hover:text-black text-white/50">
-                  {it.date.toString()}
+        </section>
+
+        <section className="sect-koop-details">
+          <div className="cont-titls-koop-det">
+            <span>
+              <input
+                name="budget"
+                onChange={(e) => onSetKoopOption(e)}
+                type="checkbox"
+              />
+              Budget
+            </span>
+
+            <span>
+              <input
+                name="budget"
+                onChange={(e) => onSetKoopOption(e)}
+                type="checkbox"
+              />
+              Date
+            </span>
+            <span>
+              <input
+                name="budget"
+                onChange={(e) => onSetKoopOption(e)}
+                type="checkbox"
+              />
+              Location
+            </span>
+            <span>
+              <input
+                name="budget"
+                onChange={(e) => onSetKoopOption(e)}
+                type="checkbox"
+              />
+              Media (Photos/Videos/Link)
+            </span>
+          </div>
+
+          <div className="cont-koop-det">
+            {koopOptions.budget && (
+              <div className="option-card budget">
+                <div>Budget</div>
+                <div>
+                  <div>
+                    From:
+                    <input type="number" placeholder="ex: 200" />
+                  </div>
+                  <div>
+                    To:
+                    <input type="number" placeholder="ex: 450" />
+                  </div>
                 </div>
               </div>
-              <div className="group-hover:visible invisible">
-                <button>Contact</button>
-                <button>Add to Fav</button>
+            )}
+
+            {koopOptions.date && (
+              <div className="option-card date">
+                <div>Date/Time</div>
+                <div>
+                  <input name="date" type="radio" /> Today (
+                  {new Date().toISOString()})
+                </div>
+                <div>
+                  <input name="date" type="radio" /> On
+                  <input type="datetime-local" />
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            )}
+
+            {koopOptions.location && (
+              <div className="option-card location">
+                <div>Location</div>
+                <div>
+                  <input type="radio" name="add" />
+                  My Home address
+                </div>
+                <div>
+                  <div>
+                    <input type="radio" name="add" />
+                    Other
+                  </div>
+                  <div>
+                    <input type="text" />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {koopOptions.media && (
+              <div className="option-card media flex flex-col">
+                <div>Media(photos/vids/links</div>
+                {[1, 2, 3].map((p, i) => (
+                  <input name={`file_${i}`} type="file" name={`pic_${i}`} />
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      </main>
     </div>
   );
 }
