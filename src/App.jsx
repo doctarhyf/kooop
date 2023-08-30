@@ -3,6 +3,8 @@ import koop from "../assets/koop.png";
 import { GenKoop } from "./utils/utils";
 import { AddKoop, LoadItems, SaveItem } from "./db/db";
 import { v4 as uuidv4 } from "uuid";
+import rhyf from "../assets/docta.jpg";
+import "./App2.css";
 
 const clCard =
   "shadow-lg shadow-black/20 p-2 border border-slate-300 rounded-lg mb-4";
@@ -55,8 +57,19 @@ function App() {
 
   return (
     <div className="">
-      <div className="cont-logo bg-sky-500 flex justify-center">
-        <img src={koop} />
+      <div className="cont-logo bg-sky-500 items-center flex flex-col justify-center">
+        <img src={koop} width={160} />
+        <p className=" p-2 font-thin italic">
+          100000 + of services and quick deals at your fingertips ...
+        </p>
+      </div>
+
+      <div className=" gap-2 py-2 h-[80pt] flex overflow-x-scroll w-[100vw]">
+        {[...Array(20).fill(0)].map((it, i) => (
+          <div className="bg-green-200 overflow-hidden object-cover min-w-[120pt] rounded-lg   ">
+            <img className="w-[100%]" src={rhyf} />
+          </div>
+        ))}
       </div>
 
       <main className="p-4">
