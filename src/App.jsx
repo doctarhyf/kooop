@@ -4,6 +4,9 @@ import { GenKoop } from "./utils/utils";
 import { AddKoop, LoadItems, SaveItem } from "./db/db";
 import { v4 as uuidv4 } from "uuid";
 
+const clCard =
+  "shadow-lg shadow-black/20 p-2 border border-slate-300 rounded-lg mb-4";
+
 function App() {
   const [mode, setMode] = useState("s");
   const [koopOptions, setKoopOptions] = useState({
@@ -12,6 +15,7 @@ function App() {
     location: undefined,
     media: undefined,
   });
+  const [showOptions, setShowOptions] = useState(false);
 
   useEffect(() => {}, []);
 
@@ -22,7 +26,31 @@ function App() {
   }
 
   function onSetKoopOption(e) {
-    console.log(e);
+    const optName = e.target.name;
+    const checked = e.target.checked;
+
+    setKoopOptions((old) => ({ ...koopOptions, [optName]: {} }));
+
+    switch (optName) {
+      case "budget":
+        console.log("working on ... ", optName);
+        break;
+
+      case "date":
+        console.log("working on ... ", optName);
+        break;
+
+      case "location":
+        console.log("working on ... ", optName);
+        break;
+
+      case "media":
+        console.log("working on ... ", optName);
+        break;
+    }
+
+    if (checked === false)
+      setKoopOptions((old) => ({ ...old, [optName]: undefined }));
   }
 
   return (
@@ -66,103 +94,116 @@ function App() {
           </div>
         </section>
 
-        <section className="sect-koop-details">
-          <div className="cont-titls-koop-det">
-            <span>
+        {mode === "p" && (
+          <section className="sect-koop-details">
+            <div>
               <input
-                name="budget"
-                onChange={(e) => onSetKoopOption(e)}
                 type="checkbox"
+                onChange={(e) => setShowOptions(e.target.checked)}
               />
-              Budget
-            </span>
+              Add options
+            </div>
+            {showOptions && (
+              <div className="cont-titls-koop-det my-2 bg-slate-300 p-2   rounded-lg ">
+                <span>
+                  <input
+                    name="budget"
+                    onChange={(e) => onSetKoopOption(e)}
+                    type="checkbox"
+                  />
+                  Budget
+                </span>
 
-            <span>
-              <input
-                name="budget"
-                onChange={(e) => onSetKoopOption(e)}
-                type="checkbox"
-              />
-              Date
-            </span>
-            <span>
-              <input
-                name="budget"
-                onChange={(e) => onSetKoopOption(e)}
-                type="checkbox"
-              />
-              Location
-            </span>
-            <span>
-              <input
-                name="budget"
-                onChange={(e) => onSetKoopOption(e)}
-                type="checkbox"
-              />
-              Media (Photos/Videos/Link)
-            </span>
-          </div>
-
-          <div className="cont-koop-det">
-            {koopOptions.budget && (
-              <div className="option-card budget">
-                <div>Budget</div>
-                <div>
-                  <div>
-                    From:
-                    <input type="number" placeholder="ex: 200" />
-                  </div>
-                  <div>
-                    To:
-                    <input type="number" placeholder="ex: 450" />
-                  </div>
-                </div>
+                <span>
+                  <input
+                    name="date"
+                    onChange={(e) => onSetKoopOption(e)}
+                    type="checkbox"
+                  />
+                  Date
+                </span>
+                <span>
+                  <input
+                    name="location"
+                    onChange={(e) => onSetKoopOption(e)}
+                    type="checkbox"
+                  />
+                  Location
+                </span>
+                <span>
+                  <input
+                    name="media"
+                    onChange={(e) => onSetKoopOption(e)}
+                    type="checkbox"
+                  />
+                  Media (Photos/Videos/Link)
+                </span>
               </div>
             )}
 
-            {koopOptions.date && (
-              <div className="option-card date">
-                <div>Date/Time</div>
-                <div>
-                  <input name="date" type="radio" /> Today (
-                  {new Date().toISOString()})
+            <div className={`cont-koop-det  `}>
+              {koopOptions.budget && (
+                <div className={`option-card budget ${clCard} `}>
+                  <div className="text-sky-600">Budget</div>
+                  <div>
+                    <div>
+                      From:
+                      <input type="number" placeholder="ex: 200" />
+                    </div>
+                    <div>
+                      To:
+                      <input type="number" placeholder="ex: 450" />
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <input name="date" type="radio" /> On
-                  <input type="datetime-local" />
-                </div>
-              </div>
-            )}
+              )}
 
-            {koopOptions.location && (
-              <div className="option-card location">
-                <div>Location</div>
-                <div>
-                  <input type="radio" name="add" />
-                  My Home address
+              {koopOptions.date && (
+                <div className={`option-card date ${clCard} `}>
+                  <div className="text-sky-600">Date/Time</div>
+                  <div>
+                    <input name="date" type="radio" /> Today (
+                    {new Date().toISOString()})
+                  </div>
+                  <div>
+                    <input name="date" type="radio" /> On
+                    <input type="datetime-local" />
+                  </div>
                 </div>
-                <div>
+              )}
+
+              {koopOptions.location && (
+                <div className={`option-card location ${clCard} `}>
+                  <div className="text-sky-600">Location</div>
                   <div>
                     <input type="radio" name="add" />
-                    Other
+                    My Home address
                   </div>
                   <div>
-                    <input type="text" />
+                    <div>
+                      <input type="radio" name="add" />
+                      Other
+                    </div>
+                    <div>
+                      <input type="text" />
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {koopOptions.media && (
-              <div className="option-card media flex flex-col">
-                <div>Media(photos/vids/links</div>
-                {[1, 2, 3].map((p, i) => (
-                  <input name={`file_${i}`} type="file" name={`pic_${i}`} />
-                ))}
-              </div>
-            )}
-          </div>
-        </section>
+              {koopOptions.media && (
+                <div className={`option-card media flex ${clCard} flex-col`}>
+                  <div className="text-sky-600">Media(photos/vids/links</div>
+                  {[1, 2, 3].map((p, i) => (
+                    <input name={`file_${i}`} type="file" />
+                  ))}
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        <section className="main-cont">Koops here ...</section>
       </main>
     </div>
   );
