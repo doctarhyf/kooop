@@ -56,7 +56,7 @@ function App() {
   }
 
   return (
-    <div className="">
+    <div className=" max-w-[900px] overflow-hidden mx-auto">
       <div className="cont-logo bg-sky-500 items-center flex flex-col justify-center">
         <img src={koop} width={160} />
         <p className=" p-2 font-thin italic">
