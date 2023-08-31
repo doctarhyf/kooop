@@ -5,11 +5,15 @@ import { AddKoop, LoadItems, SaveItem } from "./db/db";
 import { v4 as uuidv4 } from "uuid";
 import rhyf from "../assets/docta.jpg";
 import "./App2.css";
+import search from "../assets/icons/search.svg";
+import post from "../assets/icons/reqserv.png";
 
 const clCard =
   "shadow-lg shadow-black/20 p-2 border border-slate-300 rounded-lg mb-4";
 
 function App() {
+  const [q, setq] = useState("");
+  const [qfocused, setqFocused] = useState(false);
   const [mode, setMode] = useState("s");
   const [koopOptions, setKoopOptions] = useState({
     budget: undefined,
@@ -55,11 +59,42 @@ function App() {
       setKoopOptions((old) => ({ ...old, [optName]: undefined }));
   }
 
+  function onSetShowOptions(e) {
+    setShowOptions(e.target.checked);
+  }
+
+  function onSearchClick(e) {
+    switch (mode) {
+      case "s":
+        searchKoops();
+        break;
+
+      case "p":
+        postKoop();
+        break;
+    }
+  }
+
+  function searchKoops() {
+    console.log("searchKoops");
+  }
+
+  function postKoop() {
+    let koop = { ...koopOptions, q: q, date: new Date().getTime() };
+    console.log("postKoop", koop);
+  }
+
   return (
     <div className=" max-w-[900px] overflow-hidden mx-auto">
-      <div className="cont-logo bg-sky-500 items-center flex flex-col justify-center">
+      <div
+        className={`cont-logo bg-sky-500 items-center flex flex-col justify-center`}
+      >
         <img src={koop} width={160} />
-        <p className=" p-2 font-thin italic">
+        <p
+          className={` p-2 text-center  transition-colors ease-in-out duration-150   ${
+            qfocused ? "text-yellow-400" : ""
+          } `}
+        >
           100000 + of services and quick deals at your fingertips ...
         </p>
       </div>
@@ -93,126 +128,143 @@ function App() {
             </button>
           </div>
           <div
-            className={` ${
+            className={` flex ${
               mode === "p" ? "rounded-lg" : ""
             } cont-search-input bg-sky-500 p-2 rounded-b-lg rounded-r-lg `}
           >
             <input
+              onChange={(e) => setq(e.target.value)}
+              onKeyUp={(e) => {
+                if (e.key === "Enter") onSearchClick(null);
+              }}
+              className="h-[30px] outline-none px-1 flex-grow rounded-md "
               type="search"
+              onFocus={(e) => setqFocused(true)}
+              onBlur={(e) => setqFocused(false)}
               placeholder={` ${
                 mode === "s" ? "search koops ..." : "post new koop ..."
               } `}
             />
-            <span>Q</span>
+            <span className="h-[30px] w-[30px] hover:scale-125  cursor-pointer inline-block">
+              <img
+                src={mode === "s" ? search : post}
+                onClick={(e) => onSearchClick(e)}
+                width={20}
+                className="translate-x-[25%] translate-y-[25%] "
+              />
+            </span>
           </div>
         </section>
 
         {mode === "p" && (
           <section className="sect-koop-details">
             <div>
-              <input
-                type="checkbox"
-                onChange={(e) => setShowOptions(e.target.checked)}
-              />
+              <input type="checkbox" onChange={(e) => onSetShowOptions(e)} />
               Add options
             </div>
             {showOptions && (
-              <div className="cont-titls-koop-det my-2 bg-slate-300 p-2   rounded-lg ">
-                <span>
-                  <input
-                    name="budget"
-                    onChange={(e) => onSetKoopOption(e)}
-                    type="checkbox"
-                  />
-                  Budget
-                </span>
+              <>
+                <div className="cont-titls-koop-det my-2 bg-slate-300 p-2   rounded-lg ">
+                  <span>
+                    <input
+                      name="budget"
+                      onChange={(e) => onSetKoopOption(e)}
+                      type="checkbox"
+                    />
+                    Budget
+                  </span>
 
-                <span>
-                  <input
-                    name="date"
-                    onChange={(e) => onSetKoopOption(e)}
-                    type="checkbox"
-                  />
-                  Date
-                </span>
-                <span>
-                  <input
-                    name="location"
-                    onChange={(e) => onSetKoopOption(e)}
-                    type="checkbox"
-                  />
-                  Location
-                </span>
-                <span>
-                  <input
-                    name="media"
-                    onChange={(e) => onSetKoopOption(e)}
-                    type="checkbox"
-                  />
-                  Media (Photos/Videos/Link)
-                </span>
-              </div>
+                  <span>
+                    <input
+                      name="date"
+                      onChange={(e) => onSetKoopOption(e)}
+                      type="checkbox"
+                    />
+                    Date
+                  </span>
+                  <span>
+                    <input
+                      name="location"
+                      onChange={(e) => onSetKoopOption(e)}
+                      type="checkbox"
+                    />
+                    Location
+                  </span>
+                  <span>
+                    <input
+                      name="media"
+                      onChange={(e) => onSetKoopOption(e)}
+                      type="checkbox"
+                    />
+                    Media (Photos/Videos/Link)
+                  </span>
+                </div>
+
+                <div className={`cont-koop-det  `}>
+                  {koopOptions.budget && (
+                    <div className={`option-card budget ${clCard} `}>
+                      <div className="text-sky-600">Budget</div>
+                      <div>
+                        <div>
+                          From:
+                          <input type="number" placeholder="ex: 200" />
+                        </div>
+                        <div>
+                          To:
+                          <input type="number" placeholder="ex: 450" />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {koopOptions.date && (
+                    <div className={`option-card date ${clCard} `}>
+                      <div className="text-sky-600">Date/Time</div>
+                      <div>
+                        <input name="date" type="radio" /> Today (
+                        {new Date().toISOString()})
+                      </div>
+                      <div>
+                        <input name="date" type="radio" /> On
+                        <input type="datetime-local" />
+                      </div>
+                    </div>
+                  )}
+
+                  {koopOptions.location && (
+                    <div className={`option-card location ${clCard} `}>
+                      <div className="text-sky-600">Location</div>
+                      <div>
+                        <input type="radio" name="add" />
+                        My Home address
+                      </div>
+                      <div>
+                        <div>
+                          <input type="radio" name="add" />
+                          Other
+                        </div>
+                        <div>
+                          <input type="text" />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {koopOptions.media && (
+                    <div
+                      className={`option-card media flex ${clCard} flex-col`}
+                    >
+                      <div className="text-sky-600">
+                        Media(photos/vids/links
+                      </div>
+                      {[1, 2, 3].map((p, i) => (
+                        <input name={`file_${i}`} type="file" />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </>
             )}
-
-            <div className={`cont-koop-det  `}>
-              {koopOptions.budget && (
-                <div className={`option-card budget ${clCard} `}>
-                  <div className="text-sky-600">Budget</div>
-                  <div>
-                    <div>
-                      From:
-                      <input type="number" placeholder="ex: 200" />
-                    </div>
-                    <div>
-                      To:
-                      <input type="number" placeholder="ex: 450" />
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {koopOptions.date && (
-                <div className={`option-card date ${clCard} `}>
-                  <div className="text-sky-600">Date/Time</div>
-                  <div>
-                    <input name="date" type="radio" /> Today (
-                    {new Date().toISOString()})
-                  </div>
-                  <div>
-                    <input name="date" type="radio" /> On
-                    <input type="datetime-local" />
-                  </div>
-                </div>
-              )}
-
-              {koopOptions.location && (
-                <div className={`option-card location ${clCard} `}>
-                  <div className="text-sky-600">Location</div>
-                  <div>
-                    <input type="radio" name="add" />
-                    My Home address
-                  </div>
-                  <div>
-                    <div>
-                      <input type="radio" name="add" />
-                      Other
-                    </div>
-                    <div>
-                      <input type="text" />
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {koopOptions.media && (
-                <div className={`option-card media flex ${clCard} flex-col`}>
-                  <div className="text-sky-600">Media(photos/vids/links</div>
-                  {[1, 2, 3].map((p, i) => (
-                    <input name={`file_${i}`} type="file" />
-                  ))}
-                </div>
-              )}
-            </div>
           </section>
         )}
 
