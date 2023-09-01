@@ -25,3 +25,5 @@ export const Firestore = getFirestore(app);
 let db = Firestore;
 
 export { db };
+
+console.log("db", db);
