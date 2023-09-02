@@ -23,3 +23,10 @@ export const ROUTES = {
 };
 
 export const clPageStyle = " max-w-[900px] overflow-hidden mx-auto";
+
+function getRefValue(ref) {
+  const v = ref?.current?.value;
+
+  return v === undefined ? "" : v;
+}
+export const GRV = getRefValue;

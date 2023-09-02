@@ -5,23 +5,22 @@ import search from "../assets/icons/search.png";
 import Header from "../comp/Header";
 import Koop from "../comp/Koop";
 import { AddKoop, LoadKoops } from "../db/db";
-import { KOOP_OPTIONS_ICONS, PAGES, clPageStyle } from "../utils/utils";
+import {
+  GRV,
+  KOOP_OPTIONS_ICONS,
+  PAGES,
+  ROUTES,
+  clPageStyle,
+} from "../utils/utils";
 import loading from "../assets/icons/progress.gif";
+import { useNavigate } from "react-router-dom";
+import SectionTitle from "../comp/SectionTitle";
 
 const clCard = ""; //
 const clOptions =
   "shadow-lg shadow-black/20 p-2 border border-slate-300 rounded-lg mb-4";
 
-function OptionTitle({ icon, title }) {
-  return (
-    <div className="text-sky-600 border-t py-2 flex items-center gap-2 mb-1">
-      <img src={icon} width={30} />
-      <span>{title}</span>
-    </div>
-  );
-}
-
-export default function PageHome({ onPageChange }) {
+export default function PageHome({}) {
   const [q, setq] = useState("");
   const [qfocused, setqFocused] = useState(false);
   const [mode, setMode] = useState("s");
@@ -73,26 +72,19 @@ export default function PageHome({ onPageChange }) {
     console.log("searchKoops");
   }
 
-  function getRefValue(ref) {
-    const v = ref?.current?.value;
-
-    return v === undefined ? "" : v;
-  }
+  const navigate = useNavigate();
 
   function onKoopClicked(koop) {
-    console.log(koop);
-    onPageChange(PAGES.VIEW_KOOP.path, koop);
+    navigate(ROUTES.VIEW_KOOP.path, { state: { koop: koop } });
   }
-
-  const grv = getRefValue;
 
   async function postKoop() {
     let koop = {
       text: q,
-      budget: grv(refBudget),
-      date: grv(refDate),
-      location: grv(refLocation),
-      media: [grv(refFiles[0]), grv(refFiles[1]), grv(refFiles[2])],
+      budget: GRV(refBudget),
+      date: GRV(refDate),
+      location: GRV(refLocation),
+      media: [GRV(refFiles[0]), GRV(refFiles[1]), GRV(refFiles[2])],
     };
     console.log(koop);
 
@@ -167,7 +159,7 @@ export default function PageHome({ onPageChange }) {
                 <div className={`cont-koop-det ${clOptions} `}>
                   <div className="flex">
                     <div className={`option-card budget  `}>
-                      <OptionTitle
+                      <SectionTitle
                         icon={KOOP_OPTIONS_ICONS.budget}
                         title="Budget"
                       />
@@ -181,7 +173,7 @@ export default function PageHome({ onPageChange }) {
                     </div>
 
                     <div className={`option-card date  `}>
-                      <OptionTitle
+                      <SectionTitle
                         icon={KOOP_OPTIONS_ICONS.date}
                         title="Date"
                       />
@@ -198,7 +190,7 @@ export default function PageHome({ onPageChange }) {
                   </div>
 
                   <div className={`option-card location  `}>
-                    <OptionTitle
+                    <SectionTitle
                       icon={KOOP_OPTIONS_ICONS.location}
                       title="Location"
                     />
@@ -215,7 +207,7 @@ export default function PageHome({ onPageChange }) {
                   </div>
 
                   <div className={`option-card media flex  flex-col`}>
-                    <OptionTitle
+                    <SectionTitle
                       icon={KOOP_OPTIONS_ICONS.media}
                       title="Media (photos/vids)"
                     />
@@ -246,7 +238,11 @@ export default function PageHome({ onPageChange }) {
         {mode === "s" && (
           <section className="main-cont">
             {koops.map((data, i) => (
-              <Koop key={i} onKoopClicked={onKoopClicked} data={data} />
+              <Koop
+                key={i}
+                onKoopClicked={(e) => onKoopClicked(data)}
+                data={data}
+              />
             ))}
           </section>
         )}

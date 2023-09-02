@@ -12,12 +12,6 @@ function App() {
   const [page, setPage] = useState(PAGES.HOME.path);
   const [curKoop, setCurKoop] = useState({});
 
-  function onPageChange(newPage, data) {
-    console.log("newPage => ", newPage, data);
-    setPage(PAGES.VIEW_KOOP.path);
-    if (newPage === PAGES.VIEW_KOOP.path) setCurKoop(data);
-  }
-
   /* return (
     <>
       {page === PAGES.VIEW_KOOP.path && (
