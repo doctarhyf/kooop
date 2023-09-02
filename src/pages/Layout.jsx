@@ -2,10 +2,23 @@ import { Outlet, Link } from "react-router-dom";
 import Header from "../comp/Header";
 import Footer from "../comp/Footer";
 import { ROUTES } from "../utils/utils";
+import { useState } from "react";
+import { LoggedInUser } from "../db/db";
 
 const Layout = () => {
+  const [user, setUser] = useState(false);
+
+  useState(() => {
+    const curUser = LoggedInUser();
+
+    setUser(curUser);
+  }, []);
+
   return (
     <>
+      {/* 
+    // ----------- for debug purpose ------------------- */}
+
       <div className="dbg-links">
         <ul>
           <li>
@@ -28,7 +41,11 @@ const Layout = () => {
           </li>
         </ul>
       </div>
-      <Header />
+
+      {/* 
+// ------------------------------ debug pupose end */}
+
+      <Header user={user} />
       {/* <nav>
         <ul>
           <li>

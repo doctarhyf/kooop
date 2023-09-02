@@ -28,5 +28,5 @@ export async function AddKoop(koop) {
 export function LoggedInUser() {
   const user = localStorage.getItem("koopUser") || false;
 
-  return user;
+  return user ? JSON.parse(user) : false;
 }
