@@ -17,10 +17,32 @@ export const PAGES = {
 
 export const ROUTES = {
   HOME: { path: "/", title: "Home" },
-  VIEW_KOOP: { path: "/view", title: "Koop" },
   MY_ACCOUNT: { path: "/my_acc", title: "My Account" },
+  VIEW_KOOP: { path: "/view", title: "Koop" },
   SUBCRIPTION: { path: "/sub", title: "Subscription" },
+
+  LOGIN: { path: "/login", title: "My Account" },
+  LEGAL: { path: "/legal", title: "Koop" },
+  INTRO: { path: "/intro", title: "Subscription" },
 };
+
+/*
+
+  <Link to={ROUTES.MY_ACCOUNT.path}>My Account</Link>
+          </li>
+          <li>
+            <Link to={ROUTES.LOOGIN.path}>Login</Link>
+          </li>
+          <li>
+            <Link to={ROUTES.LEGAL.path}>Legal</Link>
+          </li>
+          <li>
+            <Link to={ROUTES.SUBCRIPTION.path}>Subscription</Link>
+          </li>
+          <li>
+            <Link to={ROUTES.INTRO.path}>Intro</Link>
+
+*/
 
 export const clPageStyle =
   " max-w-[900px] overflow-hidden mx-auto min-h-[320pt]";

@@ -1,14 +1,13 @@
-import { Firestore, db } from "../db/fb.config";
-import { v4 as uuidv4 } from "uuid";
 import {
-  getFirestore,
-  setDoc,
   collection,
-  getDocs,
-  query,
-  orderBy,
   doc,
+  getDocs,
+  orderBy,
+  query,
+  setDoc,
 } from "firebase/firestore/lite";
+import { v4 as uuidv4 } from "uuid";
+import { Firestore, db } from "../db/fb.config";
 import { COLLECTION_NAME } from "./fb";
 
 // Get a list of cities from your database
@@ -24,4 +23,12 @@ export async function AddKoop(koop) {
   koop.id = uuidv4();
   const res = await setDoc(doc(db, COLLECTION_NAME.KOOPS, koop.id), koop);
   return res;
+}
+
+export function UserLoggedIn() {
+  const user = localStorage.getItem("koopUser") || false;
+
+  console.log("user logged in ", user);
+
+  return user;
 }

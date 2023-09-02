@@ -212,7 +212,7 @@ export default function PageHome({}) {
                       title="Media (photos/vids)"
                     />
 
-                    <div className="flex">
+                    <div className="">
                       {[1, 2, 3].map((p, i) => (
                         <input
                           name={`file_${i}`}
