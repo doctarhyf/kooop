@@ -7,7 +7,8 @@ export default function PageLogin() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const user = LoggedInUser();
+    const user = { displayname: "doctarhyf", phone: "0893092849" };
+    LoggedInUser();
 
     if (user) navigate(ROUTES.HOME.path);
   }, []);
