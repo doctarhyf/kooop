@@ -3,7 +3,7 @@ import koop from "../assets/koop.png";
 import rhyf from "../assets/docta.jpg";
 import "../App2.css";
 
-export default function Header() {
+export default function Header({ onLogoClick }) {
   const [headerMode, setHeaderMode] = useState("s");
 
   return (
@@ -16,7 +16,12 @@ export default function Header() {
       
       `}
       >
-        <img src={koop} width={headerMode === "l" ? 160 : 100} />
+        <img
+          className="cursor-pointer"
+          onClick={onLogoClick}
+          src={koop}
+          width={headerMode === "l" ? 160 : 100}
+        />
         <p
           className={` p-2 text-center  transition-colors ease-in-out duration-150   `}
         >

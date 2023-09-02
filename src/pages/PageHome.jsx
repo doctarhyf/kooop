@@ -5,7 +5,7 @@ import search from "../assets/icons/search.png";
 import Header from "../comp/Header";
 import Koop from "../comp/Koop";
 import { AddKoop, LoadKoops } from "../db/db";
-import { KOOP_OPTIONS_ICONS, PAGES } from "../utils/utils";
+import { KOOP_OPTIONS_ICONS, PAGES, clPageStyle } from "../utils/utils";
 import loading from "../assets/icons/progress.gif";
 
 const clCard = ""; //
@@ -102,7 +102,7 @@ export default function PageHome({ onPageChange }) {
   }
 
   return (
-    <div className=" max-w-[900px] overflow-hidden mx-auto">
+    <div className={clPageStyle}>
       <Header />
 
       <main className="p-4 ">

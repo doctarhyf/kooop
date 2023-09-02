@@ -14,3 +14,5 @@ export const PAGES = {
   HOME: { path: "home" },
   VIEW_KOOP: { path: "viewKoop" },
 };
+
+export const clPageStyle = " max-w-[900px] overflow-hidden mx-auto";
