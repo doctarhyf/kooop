@@ -22,7 +22,8 @@ export const ROUTES = {
   SUBCRIPTION: { path: "/sub", title: "Subscription" },
 };
 
-export const clPageStyle = " max-w-[900px] overflow-hidden mx-auto";
+export const clPageStyle =
+  " max-w-[900px] overflow-hidden mx-auto min-h-[320pt]";
 
 function getRefValue(ref) {
   const v = ref?.current?.value;

@@ -236,15 +236,20 @@ export default function PageHome({}) {
         )}
 
         {mode === "s" && (
-          <section className="main-cont md:flex md:flex-wrap">
-            {koops.map((data, i) => (
-              <Koop
-                key={i}
-                onKoopClicked={(e) => onKoopClicked(data)}
-                data={data}
-              />
-            ))}
-          </section>
+          <div>
+            <section className="main-cont md:flex md:flex-wrap">
+              {koops.map((data, i) => (
+                <Koop
+                  key={i}
+                  onKoopClicked={(e) => onKoopClicked(data)}
+                  data={data}
+                />
+              ))}
+            </section>
+            <div>
+              {"<"} 1 2 3 ... 10 {">"}
+            </div>
+          </div>
         )}
       </main>
     </div>
