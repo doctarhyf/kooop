@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 export default function Header({ onLogoClick, small }) {
   return (
-    <div className="header bg-sky-500">
+    <div className="header bg-sky-500 flex flex-col">
       <div
         className={`cont-logo  items-center flex
       
@@ -15,9 +15,15 @@ export default function Header({ onLogoClick, small }) {
       
       `}
       >
+        <img
+          alt="My Account"
+          src={rhyf}
+          className="rounded-full w-[30pt] self-end hover:outline cursor-pointer hover:outline-white  m-2"
+        />
+
         <Link to="/">
           <img
-            className="cursor-pointer"
+            className="cursor-pointer -mt-[50pt]"
             onClick={(e) => {
               //window.location.reload();
               console.log(e);
