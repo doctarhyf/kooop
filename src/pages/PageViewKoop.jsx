@@ -81,12 +81,12 @@ export default function PageViewKoop({ onPageChange }) {
   return (
     <div className={`${clPageStyle} p-4 `}>
       <div className="btns-cont p-2 flex flex-col md:flex-row gap-4">
-        <budget
+        <button
           onClick={(e) => navigate(ROUTES.HOME.path)}
           className={clBtn("green")}
         >
           HOME
-        </budget>
+        </button>
         <button className={clBtn("green")}>Contact Info</button>
         <button onClick={(e) => onAddKoopToFav()} className={clBtn("yellow")}>
           FAV
