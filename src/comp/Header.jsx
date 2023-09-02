@@ -6,8 +6,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "../utils/utils";
 
 export default function Header({ onLogoClick, small, user }) {
-  small = true;
-
   return (
     <div className="header bg-sky-500 flex flex-col">
       <div
