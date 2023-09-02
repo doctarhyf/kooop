@@ -42,7 +42,7 @@ Error generating stack: `+o.message+`
       ${t==="s"?" justify-around ":"flex-col justify-center"}
       
       
-      `,children:[E.jsx("img",{className:"cursor-pointer",onClick:e,src:uy,width:t==="l"?160:100}),E.jsx("p",{className:" p-2 text-center  transition-colors ease-in-out duration-150   ",children:"100000 + of services and quick deals at your fingertips ..."})]}),E.jsx("div",{className:` gap-2 py-2 
+      `,children:[E.jsx("img",{className:"cursor-pointer",onClick:r=>{window.location.reload()},src:uy,width:t==="l"?160:100}),E.jsx("p",{className:" p-2 text-center  transition-colors ease-in-out duration-150   ",children:"100000 + of services and quick deals at your fingertips ..."})]}),E.jsx("div",{className:` gap-2 py-2 
       
       ${t==="s"?" h-[60pt] ":" h-[80pt] "}
       
