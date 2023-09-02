@@ -1,17 +1,24 @@
 import { useEffect, useRef, useState } from "react";
-import rhyf from "../assets/docta.jpg";
+import "../App2.css";
 import post from "../assets/icons/reqserv.png";
 import search from "../assets/icons/search.png";
-import koop from "../assets/koop.png";
-import "../App2.css";
-import { LoadItems } from "../db/fb";
-import { AddKoop, LoadKoops } from "../db/db";
 import Header from "../comp/Header";
 import Koop from "../comp/Koop";
+import { AddKoop, LoadKoops } from "../db/db";
+import { KOOP_OPTIONS_ICONS } from "../utils/utils";
 
 const clCard = ""; //
 const clOptions =
   "shadow-lg shadow-black/20 p-2 border border-slate-300 rounded-lg mb-4";
+
+function OptionTitle({ icon, title }) {
+  return (
+    <div className="text-sky-600 border-t py-2 flex items-center gap-2 mb-1">
+      <img src={icon} width={30} />
+      <span>{title}</span>
+    </div>
+  );
+}
 
 export default function PageHome() {
   const [q, setq] = useState("");
@@ -157,7 +164,10 @@ export default function PageHome() {
                 <div className={`cont-koop-det ${clOptions} `}>
                   <div className="flex">
                     <div className={`option-card budget  `}>
-                      <div className="text-sky-600">Budget</div>
+                      <OptionTitle
+                        icon={KOOP_OPTIONS_ICONS.budget}
+                        title="Budget"
+                      />
 
                       <input
                         ref={refBudget}
@@ -168,7 +178,10 @@ export default function PageHome() {
                     </div>
 
                     <div className={`option-card date  `}>
-                      <div className="text-sky-600">Date/Time</div>
+                      <OptionTitle
+                        icon={KOOP_OPTIONS_ICONS.date}
+                        title="Date"
+                      />
 
                       <div>
                         <input
@@ -182,7 +195,10 @@ export default function PageHome() {
                   </div>
 
                   <div className={`option-card location  `}>
-                    <div className="text-sky-600">Location</div>
+                    <OptionTitle
+                      icon={KOOP_OPTIONS_ICONS.location}
+                      title="Location"
+                    />
 
                     <div>
                       <input
@@ -196,7 +212,10 @@ export default function PageHome() {
                   </div>
 
                   <div className={`option-card media flex  flex-col`}>
-                    <div className="text-sky-600">Media (photos/vids)</div>
+                    <OptionTitle
+                      icon={KOOP_OPTIONS_ICONS.media}
+                      title="Media (photos/vids)"
+                    />
 
                     <div className="flex">
                       {[1, 2, 3].map((p, i) => (

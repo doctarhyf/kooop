@@ -1,5 +1,11 @@
-export function GenKoop(text, budget, date) {
-  let koop = { text: text, budget: budget, date: date };
+import budget from "../assets/icons/budget.png";
+import date from "../assets/icons/date.png";
+import location from "../assets/icons/location.png";
+import media from "../assets/icons/media.png";
 
-  return koop;
-}
+export const KOOP_OPTIONS_ICONS = {
+  budget: budget,
+  date: date,
+  location: location,
+  media: media,
+};
