@@ -18,7 +18,9 @@ export default function Header({ onLogoClick }) {
       >
         <img
           className="cursor-pointer"
-          onClick={onLogoClick}
+          onClick={(e) => {
+            window.location.reload();
+          }}
           src={koop}
           width={headerMode === "l" ? 160 : 100}
         />
