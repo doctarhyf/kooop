@@ -9,3 +9,8 @@ export const KOOP_OPTIONS_ICONS = {
   location: location,
   media: media,
 };
+
+export const PAGES = {
+  HOME: { path: "home" },
+  VIEW_KOOP: { path: "viewKoop" },
+};

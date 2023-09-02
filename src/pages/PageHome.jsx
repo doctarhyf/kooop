@@ -5,7 +5,8 @@ import search from "../assets/icons/search.png";
 import Header from "../comp/Header";
 import Koop from "../comp/Koop";
 import { AddKoop, LoadKoops } from "../db/db";
-import { KOOP_OPTIONS_ICONS } from "../utils/utils";
+import { KOOP_OPTIONS_ICONS, PAGES } from "../utils/utils";
+import loading from "../assets/icons/progress.gif";
 
 const clCard = ""; //
 const clOptions =
@@ -20,7 +21,7 @@ function OptionTitle({ icon, title }) {
   );
 }
 
-export default function PageHome() {
+export default function PageHome({ onPageChange }) {
   const [q, setq] = useState("");
   const [qfocused, setqFocused] = useState(false);
   const [mode, setMode] = useState("s");
@@ -32,15 +33,18 @@ export default function PageHome() {
 
   const [showOptions, setShowOptions] = useState(false);
   const [koops, setKoops] = useState([]);
+  const [fetchingData, setFetchingData] = useState(true);
 
   useEffect(() => {
     loadKoops();
   }, []);
 
   async function loadKoops() {
+    setFetchingData(true);
     const koops = await LoadKoops();
     setKoops(koops);
     console.log(koops);
+    setFetchingData(false);
   }
 
   function onSetMode(m) {
@@ -77,6 +81,7 @@ export default function PageHome() {
 
   function onKoopClicked(koop) {
     console.log(koop);
+    onPageChange(PAGES.VIEW_KOOP.path, koop);
   }
 
   const grv = getRefValue;
@@ -231,6 +236,13 @@ export default function PageHome() {
               </>
             )}
           </section>
+        )}
+
+        {fetchingData && (
+          <div className="flex justify-center items-center gap-8 p-2 m-2">
+            <img src={loading} width={60} />
+            Please wait ...
+          </div>
         )}
 
         {mode === "s" && (
