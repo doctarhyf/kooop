@@ -5,6 +5,8 @@ import {
   setDoc,
   collection,
   getDocs,
+  query,
+  orderBy,
   doc,
 } from "firebase/firestore/lite";
 import { COLLECTION_NAME } from "./fb";
@@ -12,9 +14,10 @@ import { COLLECTION_NAME } from "./fb";
 // Get a list of cities from your database
 export async function LoadKoops() {
   const citiesCol = collection(Firestore, "koops");
-  const citySnapshot = await getDocs(citiesCol);
+  const q = query(citiesCol, orderBy("date", "desc"));
+  const citySnapshot = await getDocs(q);
   const cityList = citySnapshot.docs.map((doc) => doc.data());
-  return cityList;
+  return cityList.sort();
 }
 
 export async function AddKoop(koop) {

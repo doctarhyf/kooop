@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App2.css";
 import PageHome from "./pages/PageHome";
+import PageNotFound from "./pages/PageNotFound";
 
 const PAGES = {
   HOME: { path: "home" },
@@ -12,7 +13,7 @@ function App() {
   return (
     <>
       {page === PAGES.HOME.path && <PageHome />}
-      {page === undefined && <div>No Page</div>}
+      {page === undefined && <PageNotFound />}
     </>
   );
 }

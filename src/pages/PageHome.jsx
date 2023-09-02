@@ -6,6 +6,8 @@ import koop from "../assets/koop.png";
 import "../App2.css";
 import { LoadItems } from "../db/fb";
 import { AddKoop, LoadKoops } from "../db/db";
+import Header from "../comp/Header";
+import Koop from "../comp/Koop";
 
 const clCard = ""; //
 const clOptions =
@@ -66,6 +68,10 @@ export default function PageHome() {
     return v === undefined ? "" : v;
   }
 
+  function onKoopClicked(koop) {
+    console.log(koop);
+  }
+
   const grv = getRefValue;
 
   async function postKoop() {
@@ -79,34 +85,15 @@ export default function PageHome() {
     console.log(koop);
 
     const res = await AddKoop(koop);
-
+    loadKoops();
     console.log(res);
   }
 
   return (
     <div className=" max-w-[900px] overflow-hidden mx-auto">
-      <div
-        className={`cont-logo bg-sky-500 items-center flex flex-col justify-center`}
-      >
-        <img src={koop} width={160} />
-        <p
-          className={` p-2 text-center  transition-colors ease-in-out duration-150   ${
-            qfocused ? "text-yellow-400" : ""
-          } `}
-        >
-          100000 + of services and quick deals at your fingertips ...
-        </p>
-      </div>
+      <Header />
 
-      <div className=" gap-2 py-2 h-[80pt] flex overflow-x-scroll w-[100vw]">
-        {[...Array(20).fill(0)].map((it, i) => (
-          <div className="bg-green-200 overflow-hidden object-cover min-w-[120pt] rounded-lg   ">
-            <img className="w-[100%]" src={rhyf} />
-          </div>
-        ))}
-      </div>
-
-      <main className="p-4">
+      <main className="p-4 ">
         <section className="sect-search">
           <div className="cont-search-mode">
             <button
@@ -168,22 +155,29 @@ export default function PageHome() {
             {showOptions && (
               <>
                 <div className={`cont-koop-det ${clOptions} `}>
-                  <div className={`option-card budget  `}>
-                    <div className="text-sky-600">Budget</div>
+                  <div className="flex">
+                    <div className={`option-card budget  `}>
+                      <div className="text-sky-600">Budget</div>
 
-                    <input
-                      ref={refBudget}
-                      name="budget"
-                      type="number"
-                      placeholder="ex: 450"
-                    />
-                  </div>
+                      <input
+                        ref={refBudget}
+                        name="budget"
+                        type="number"
+                        placeholder="ex: 450"
+                      />
+                    </div>
 
-                  <div className={`option-card date  `}>
-                    <div className="text-sky-600">Date/Time</div>
+                    <div className={`option-card date  `}>
+                      <div className="text-sky-600">Date/Time</div>
 
-                    <div>
-                      <input ref={refDate} name="date" type="date" />
+                      <div>
+                        <input
+                          className="w-[100%]"
+                          ref={refDate}
+                          name="date"
+                          type="date"
+                        />
+                      </div>
                     </div>
                   </div>
 
@@ -192,6 +186,7 @@ export default function PageHome() {
 
                     <div>
                       <input
+                        className="w-[100%]"
                         ref={refLocation}
                         placeholder="koop location ..."
                         type="text"
@@ -201,10 +196,17 @@ export default function PageHome() {
                   </div>
 
                   <div className={`option-card media flex  flex-col`}>
-                    <div className="text-sky-600">Media(photos/vids/links</div>
-                    {[1, 2, 3].map((p, i) => (
-                      <input name={`file_${i}`} ref={refFiles[i]} type="file" />
-                    ))}
+                    <div className="text-sky-600">Media (photos/vids)</div>
+
+                    <div className="flex">
+                      {[1, 2, 3].map((p, i) => (
+                        <input
+                          name={`file_${i}`}
+                          ref={refFiles[i]}
+                          type="file"
+                        />
+                      ))}
+                    </div>
                   </div>
                 </div>
               </>
@@ -212,14 +214,13 @@ export default function PageHome() {
           </section>
         )}
 
-        <section className="main-cont">
-          {koops.map((k, i) => (
-            <div className="border-sky-200 border my-2 p-2 rounded-lg hover:border-sky-500 shadow-black/10  shadow-lg hover:bg-sky-slate-200">
-              <div>{k.text}</div>
-              <div>{k.date}</div>
-            </div>
-          ))}
-        </section>
+        {mode === "s" && (
+          <section className="main-cont">
+            {koops.map((data, i) => (
+              <Koop key={i} onKoopClicked={onKoopClicked} data={data} />
+            ))}
+          </section>
+        )}
       </main>
     </div>
   );
