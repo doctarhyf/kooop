@@ -5,6 +5,7 @@ import search from "../assets/icons/search.png";
 import Header from "../comp/Header";
 import Koop from "../comp/Koop";
 import { AddKoop, LoadKoops } from "../db/db";
+import LoadError from "../comp/LoadError";
 import {
   GRV,
   KOOP_OPTIONS_ICONS,
@@ -33,17 +34,28 @@ export default function PageHome({}) {
   const [showOptions, setShowOptions] = useState(false);
   const [koops, setKoops] = useState([]);
   const [fetchingData, setFetchingData] = useState(true);
+  const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
     loadKoops();
   }, []);
 
   async function loadKoops() {
+    setLoadError(false);
     setFetchingData(true);
-    const koops = await LoadKoops();
-    setKoops(koops);
-    console.log(koops);
-    setFetchingData(false);
+
+    try {
+      const koops = await LoadKoops();
+      setKoops(koops);
+      console.log(koops);
+      setFetchingData(false);
+    } catch (e) {
+      setLoadError(e);
+      setLoadError(e.toString());
+    } finally {
+      console.log("done");
+      setFetchingData(false);
+    }
   }
 
   function onSetMode(m) {
@@ -234,6 +246,8 @@ export default function PageHome({}) {
             Please wait ...
           </div>
         )}
+
+        <LoadError msg={loadError} error={loadError} />
 
         {mode === "s" && (
           <div>

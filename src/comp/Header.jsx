@@ -2,9 +2,16 @@ import React, { useState } from "react";
 import koop from "../assets/koop.png";
 import rhyf from "../assets/docta.jpg";
 import "../App2.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ROUTES } from "../utils/utils";
 
 export default function Header({ onLogoClick, small }) {
+  const navigate = useNavigate();
+
+  useState(() => {
+    navigate(ROUTES.LOGIN.path);
+  }, []);
+
   return (
     <div className="header bg-sky-500 flex flex-col">
       <div
@@ -15,12 +22,14 @@ export default function Header({ onLogoClick, small }) {
       
       `}
       >
-        <img
-          alt="My Account"
-          src={rhyf}
-          className="rounded-full w-[30pt] self-end hover:outline cursor-pointer hover:outline-white  m-2"
-        />
-
+        <div>
+          <img
+            alt="My Account"
+            src={rhyf}
+            className="rounded-full w-[30pt]  hover:outline cursor-pointer hover:outline-white  "
+          />
+          <div></div>
+        </div>
         <Link to="/">
           <img
             className="cursor-pointer -mt-[50pt]"

@@ -11,7 +11,7 @@ import PageLogin from "./pages/PageLogin";
 import PageLegal from "./pages/PageLegal";
 import PageSub from "./pages/PageSub";
 import PageIntro from "./pages/PageIntro";
-import { UserLoggedIn } from "./db/db";
+import { LoggedInUser } from "./db/db";
 
 function App() {
   const [page, setPage] = useState(PAGES.HOME.path);
@@ -19,7 +19,8 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(true);
 
   useEffect(() => {
-    setLoggedIn(UserLoggedIn());
+    const user = LoggedInUser();
+    setLoggedIn(user);
   }, []);
 
   return (
