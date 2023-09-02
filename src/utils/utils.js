@@ -15,4 +15,11 @@ export const PAGES = {
   VIEW_KOOP: { path: "viewKoop" },
 };
 
+export const ROUTES = {
+  HOME: { path: "/", title: "Home" },
+  VIEW_KOOP: { path: "/view", title: "Koop" },
+  MY_ACCOUNT: { path: "/my_acc", title: "My Account" },
+  SUBCRIPTION: { path: "/sub", title: "Subscription" },
+};
+
 export const clPageStyle = " max-w-[900px] overflow-hidden mx-auto";

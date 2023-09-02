@@ -3,15 +3,13 @@ import koop from "../assets/koop.png";
 import rhyf from "../assets/docta.jpg";
 import "../App2.css";
 
-export default function Header({ onLogoClick }) {
-  const [headerMode, setHeaderMode] = useState("s");
-
+export default function Header({ onLogoClick, small }) {
   return (
     <div className="header bg-sky-500">
       <div
         className={`cont-logo  items-center flex
       
-      ${headerMode === "s" ? " justify-around " : "flex-col justify-center"}
+      ${small ? " justify-around " : "flex-col justify-center"}
       
       
       `}
@@ -22,7 +20,7 @@ export default function Header({ onLogoClick }) {
             window.location.reload();
           }}
           src={koop}
-          width={headerMode === "l" ? 160 : 100}
+          width={small ? 160 : 100}
         />
         <p
           className={` p-2 text-center  transition-colors ease-in-out duration-150   `}
@@ -34,7 +32,7 @@ export default function Header({ onLogoClick }) {
       <div
         className={` gap-2 py-2 
       
-      ${headerMode === "s" ? " h-[60pt] " : " h-[80pt] "}
+      ${small ? " h-[60pt] " : " h-[80pt] "}
       
       flex overflow-x-scroll w-[100vw]`}
       >

@@ -103,8 +103,6 @@ export default function PageHome({ onPageChange }) {
 
   return (
     <div className={clPageStyle}>
-      <Header />
-
       <main className="p-4 ">
         <section className="sect-search">
           <div className="cont-search-mode">
