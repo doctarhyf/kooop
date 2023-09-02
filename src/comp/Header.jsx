@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import koop from "../assets/koop.png";
 import rhyf from "../assets/docta.jpg";
 import "../App2.css";
+import { Link } from "react-router-dom";
 
 export default function Header({ onLogoClick, small }) {
   return (
@@ -14,14 +15,17 @@ export default function Header({ onLogoClick, small }) {
       
       `}
       >
-        <img
-          className="cursor-pointer"
-          onClick={(e) => {
-            window.location.reload();
-          }}
-          src={koop}
-          width={small ? 160 : 100}
-        />
+        <Link to="/">
+          <img
+            className="cursor-pointer"
+            onClick={(e) => {
+              //window.location.reload();
+              console.log(e);
+            }}
+            src={koop}
+            width={small ? 160 : 100}
+          />
+        </Link>
         <p
           className={` p-2 text-center  transition-colors ease-in-out duration-150   `}
         >
