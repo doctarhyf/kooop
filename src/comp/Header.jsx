@@ -17,13 +17,16 @@ export default function Header({ onLogoClick, small, user }) {
       `}
       >
         <div className={`self-end m-4 ${small ? " flex-1 " : ""}  `}>
-          <img
-            alt="My Account"
-            src={rhyf}
-            className="rounded-full w-[30pt] mx-auto hover:outline cursor-pointer hover:outline-white  "
-          />
+          <Link to={ROUTES.MY_ACCOUNT.path}>
+            <img
+              alt="My Account"
+              src={rhyf}
+              className="rounded-full w-[30pt] mx-auto hover:outline cursor-pointer hover:outline-white  "
+            />
+          </Link>
           <div className="text-center text-sm bg-white text-sky-500 rounded-lg w-fit mx-auto px-1 my-2 ">
-            {user.displayname} {user.phone}
+            <div>{user.displayname}</div>
+            <div> {user.phone}</div>
           </div>
         </div>
         <Link to="/">

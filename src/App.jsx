@@ -29,7 +29,6 @@ function App() {
         <Route path="/" element={loggedIn ? <Layout /> : <PageLogin />}>
           <Route index element={<PageHome />} />
           <Route path={ROUTES.VIEW_KOOP.path} element={<PageViewKoop />} />
-          <Route path={ROUTES.MY_ACCOUNT.path} element={<PageMyAccount />} />
 
           <Route path={ROUTES.LEGAL.path} element={<PageLegal />} />
           <Route path={ROUTES.SUBCRIPTION.path} element={<PageSub />} />
@@ -38,6 +37,7 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
         </Route>
 
+        <Route path={ROUTES.MY_ACCOUNT.path} element={<PageMyAccount />} />
         <Route path="/intro" element={<PageIntro />} />
         <Route path={ROUTES.LOGIN.path} element={<PageLogin />} />
       </Routes>
