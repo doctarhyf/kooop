@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { LoggedInUser } from "../db/db";
+import { LoggedInUser, SignInWithPhoneNumber } from "../db/db";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../utils/utils";
 import koop from "../assets/koop.png";
@@ -14,7 +14,10 @@ function Slider() {
   return (
     <div className=" w-[100vw] mx-auto max-w-[1100px] my-4 grid gap-1 grid-flow-col auto-cols-[150pt] snap-x scroll-p-1 snap-mandatory overflow-x-scroll  ">
       {[...Array(10).fill(icon)].map((s, i) => (
-        <div className="w-[140pt] rounded-lg h-[100pt] border-0 overflow-hidden border-purple-600 bg-emerald-500/0">
+        <div
+          key={i}
+          className="w-[140pt] rounded-lg h-[100pt] border-0 overflow-hidden border-purple-600 bg-emerald-500/0"
+        >
           <img src={s} className="w-[100%] object-none" />
         </div>
       ))}
@@ -38,9 +41,9 @@ export default function PageLogin() {
 
   function onSignIn(e) {
     if (curSection === "phone") {
-      const phone = refPhone.current.value;
+      const phonenumber = refPhone.current.value;
 
-      console.log(phone);
+      SignInWithPhoneNumber(phonenumber);
     }
   }
 
@@ -75,6 +78,7 @@ export default function PageLogin() {
               placeholder="****"
             />
             <button
+              id="sign-in-button"
               ref={refBtnSignIn}
               onClick={onSignIn}
               className={`bg-white disabled:bg-white/50 disabled:text-gray-200/50 min-w-[200px] my-4 text-center mx-auto 
@@ -98,6 +102,7 @@ export default function PageLogin() {
             { title: "Sign In With Google", icon: google, section: "google" },
           ].map((b, i) => (
             <button
+              key={i}
               onClick={(e) => setCurSection(b.section)}
               className={`bg-white 
               hover:outline hover:outline-purple-600 md:max-w-[50%] 
