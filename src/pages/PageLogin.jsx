@@ -6,6 +6,9 @@ import koop from "../assets/koop.png";
 import google from "../assets/icons/google.svg";
 import phone from "../assets/icons/phone.svg";
 import icon from "../assets/docta.jpg";
+import "../App.css";
+import key from "../assets/icons/key.png";
+import DebugMenu from "../comp/DebugMenu";
 
 function Slider() {
   return (
@@ -24,6 +27,7 @@ export default function PageLogin() {
   const [curSection, setCurSection] = useState("");
   const refPhone = useRef();
   const refOTP = useRef();
+  const refBtnSignIn = useRef();
 
   useEffect(() => {
     const user = undefined; // = { displayname: "doctarhyf", phone: "0893092849" };
@@ -33,11 +37,17 @@ export default function PageLogin() {
   }, []);
 
   function onSignIn(e) {
-    console.log(e);
+    if (curSection === "phone") {
+      const phone = refPhone.current.value;
+
+      console.log(phone);
+    }
   }
 
   return (
-    <div className="bg-gradient-to-b from-sky-500 to-purple-700 text-center flex-col h-[100vh] flex  ">
+    <div className="bg-gradient-to-b from-sky-500 to-purple-700 text-center pb-4 flex-col min-h-[100vh] flex  ">
+      <DebugMenu />
+
       <div>
         <img src={koop} width={180} className="mx-auto" />
         <p>Proviter de 10000 + de services offerts </p>
@@ -50,24 +60,28 @@ export default function PageLogin() {
           <div>
             <div className="text-white">Phone</div>
             <input
+              maxLength={10}
               ref={refPhone}
               className="p-2 rounded-lg m-2"
-              type="phone"
+              type="tel"
               placeholder="0893092849"
             />
             <div className="text-white">OTP</div>
             <input
+              maxLength={4}
               className="p-2 rounded-lg m-2"
               ref={refOTP}
               type="phone"
-              placeholder="0893092849"
+              placeholder="****"
             />
             <button
+              ref={refBtnSignIn}
               onClick={onSignIn}
-              className={`bg-white mx-auto 
+              className={`bg-white disabled:bg-white/50 disabled:text-gray-200/50 min-w-[200px] my-4 text-center mx-auto 
               hover:outline hover:outline-purple-600 md:max-w-[50%] 
               p-2 flex gap-4 rounded-lg`}
             >
+              <img src={key} width={30} />
               Sign In
             </button>
           </div>
