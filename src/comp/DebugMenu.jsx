@@ -3,9 +3,9 @@ import { ROUTES } from "../utils/utils";
 
 export default function DebugMenu() {
   return (
-    <div className="dbg-links">
-      <ul>
-        <p>------ DEBUG MENU -----</p>
+    <div className="dbg-links ">
+      <p>------ DEBUG MENU -----</p>
+      <ul className="flex gap-2 justify-center items-center">
         <li>
           <Link to="/">Home</Link>
         </li>
