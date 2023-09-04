@@ -16,6 +16,7 @@ import {
 import loading from "../assets/icons/progress.gif";
 import { useNavigate } from "react-router-dom";
 import SectionTitle from "../comp/SectionTitle";
+import Paginator from "../comp/Paginator";
 
 const clCard = ""; //
 const clOptions =
@@ -260,9 +261,7 @@ export default function PageHome({}) {
                 />
               ))}
             </section>
-            <div>
-              {"<"} 1 2 3 ... 10 {">"}
-            </div>
+            <Paginator />
           </div>
         )}
       </main>
