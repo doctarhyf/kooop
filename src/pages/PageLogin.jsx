@@ -24,7 +24,7 @@ export default function PageLogin() {
       window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-cont", {
         size: "invisible",
         callback: (response) => {
-          console.log(response);
+          console.log("da resp ==> \n", response);
         },
       });
     };
@@ -43,6 +43,10 @@ export default function PageLogin() {
     }
   };
 
+  function userExistsInFirestore(user) {
+    return true;
+  }
+
   const verifyOTP = (e) => {
     let otp = e.target.value;
     //setOTP(otp);
@@ -55,6 +59,13 @@ export default function PageLogin() {
         .then((result) => {
           const user = result.user;
           console.log("user", user);
+
+          if (userExistsInFirestore(user)) {
+            //login
+          } else {
+            //create new user
+            //then login
+          }
         })
         .catch((error) => {
           console.log("error => ", error);
