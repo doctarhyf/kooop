@@ -22,7 +22,7 @@ export default function PageLogin() {
 
     const generateRecaptcha = () => {
       window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-cont", {
-        /*   size: "invisible", */
+        size: "invisible",
         callback: (response) => {
           console.log(response);
         },
