@@ -24,6 +24,8 @@ export const ROUTES = {
   LOGIN: { path: "/login", title: "My Account" },
   LEGAL: { path: "/legal", title: "Koop" },
   INTRO: { path: "/intro", title: "Subscription" },
+
+  TEST_REC: { path: "/test_rec", title: "Test Rect" },
 };
 
 /*

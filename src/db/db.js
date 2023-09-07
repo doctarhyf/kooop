@@ -25,8 +25,10 @@ export async function AddKoop(koop) {
   return res;
 }
 
-export function LoggedInUser() {
+export function LoggedInUser(debugMode) {
   const user = localStorage.getItem("koopUser") || false;
+
+  if (debugMode) return { phone: "0893092849", displayename: "docta rhyf" };
 
   return user ? JSON.parse(user) : false;
 }

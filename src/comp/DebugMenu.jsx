@@ -24,6 +24,9 @@ export default function DebugMenu() {
         <li>
           <Link to={ROUTES.INTRO.path}>Intro</Link>
         </li>
+        <li>
+          <Link to={ROUTES.TEST_REC.path}>Test</Link>
+        </li>
       </ul>
       <p>------ DEBUG MENU -----</p>
     </div>

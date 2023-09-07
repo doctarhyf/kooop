@@ -11,6 +11,7 @@ import PageLogin from "./pages/PageLogin";
 import PageLegal from "./pages/PageLegal";
 import PageSub from "./pages/PageSub";
 import PageIntro from "./pages/PageIntro";
+import PageTest from "./pages/PageTest";
 import { LoggedInUser } from "./db/db";
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(true);
 
   useEffect(() => {
-    const user = LoggedInUser();
+    const user = LoggedInUser(true);
     setLoggedIn(user);
   }, []);
 
@@ -35,6 +36,7 @@ function App() {
           {/* <Route path={ROUTES.INTRO.path} element={<PageIntro />} /> */}
 
           <Route path="*" element={<PageNotFound />} />
+          <Route path={ROUTES.TEST_REC.path} element={<PageTest />} />
         </Route>
 
         <Route path={ROUTES.MY_ACCOUNT.path} element={<PageMyAccount />} />
