@@ -1,5 +1,6 @@
 //React audio recorder
 import React, { useState, useRef } from "react";
+import { Line, Circle } from "rc-progress";
 
 function AudioRecorderPlayer() {
   const [recording, setRecording] = useState(false);
@@ -24,6 +25,8 @@ function AudioRecorderPlayer() {
         mediaRecorder.onstop = () => {
           const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
           setAudioBlob(audioBlob);
+
+          console.log(audioBlob.size + " bytes");
         };
 
         mediaRecorder.start();
@@ -94,6 +97,11 @@ function AudioRecorderPlayer() {
         Upload Audio
       </button>
       <audio ref={audioRef} controls />
+
+      <>
+        <Line percent={10} strokeWidth={4} strokeColor="green" />
+        <Circle percent={10} strokeWidth={4} strokeColor="#D3D3D3" />
+      </>
     </div>
   );
 }
