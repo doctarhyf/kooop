@@ -1,6 +1,7 @@
 //React audio recorder
 import React, { useState, useRef } from "react";
 import { Line, Circle } from "rc-progress";
+import { uploadFile } from "../db/db";
 
 function AudioRecorderPlayer() {
   const [recording, setRecording] = useState(false);
@@ -105,11 +106,51 @@ function AudioRecorderPlayer() {
     </div>
   );
 }
+
+function FileUploader({}) {
+  const [file, setFile] = useState();
+
+  function onChange(e) {
+    setFile(e.target.files[0]);
+  }
+
+  function onProgress(pct) {
+    console.log("pct : ", pct);
+  }
+
+  function onError(error) {
+    console.log(error);
+    alert(error);
+  }
+
+  function onDone(d) {
+    console.log(d);
+    alert(d);
+  }
+
+  async function onUploadFile(e) {
+    if (file !== undefined) {
+      console.log("Uploading start ...");
+      const res = await uploadFile(file, onProgress, onError, onDone);
+      console.log("upload res => ", res);
+    } else {
+      alert("Please select a file first!");
+    }
+  }
+
+  return (
+    <div>
+      <input type="file" onChange={onChange} />
+      <button onClick={onUploadFile}>Upload File</button>
+    </div>
+  );
+}
+
 export default function PageTest({}) {
   return (
     <div>
-      cool
-      <AudioRecorderPlayer />
+      {/* <AudioRecorderPlayer /> */}
+      <FileUploader />
     </div>
   );
 }
