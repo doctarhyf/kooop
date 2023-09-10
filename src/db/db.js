@@ -12,12 +12,14 @@ import {
   ref,
   uploadBytesResumable,
   getDownloadURL,
+  deleteObject,
 } from "firebase/storage";
 
 import { v4 as uuidv4 } from "uuid";
 import { Firestore, db, auth } from "../db/fb.config";
 
 import { signInWithPhoneNumber } from "firebase/auth";
+import { getRandomFileName } from "../utils/utils";
 
 export async function LoadKoops() {
   const citiesCol = collection(Firestore, "koops");
@@ -61,18 +63,39 @@ export async function SignInWithPhoneNumber(phoneNumber) {
 }
 
 // Upload file using standard upload
-export async function uploadFile(file, onProgress, onError, onDone) {
+export async function uploadFile(
+  file,
+  onUploadProgress,
+  onUploadError,
+  onFileUploaded
+) {
+  if (file === undefined) {
+    console.log("file undefined ...", file);
+    return;
+  }
+
   const storage = getStorage();
+  const { type, name } = file;
+  const ext = name.split(".")[name.split(".").length - 1];
+  const newFileName = `${getRandomFileName()}.${ext}`;
+  const storageFilePath = "images/" + newFileName;
 
   // Create the file metadata
   /** @type {any} */
   const metadata = {
-    contentType: "image/jpeg",
+    contentType: type, //"image/jpeg",
   };
 
+  if (!type.includes("image")) {
+    onUploadError("Please select an image file");
+    return;
+  }
+
   // Upload file and metadata to the object 'images/mountains.jpg'
-  const storageRef = ref(storage, "images/" + file.name);
+  const storageRef = ref(storage, storageFilePath);
   const uploadTask = uploadBytesResumable(storageRef, file, metadata);
+
+  console.log("Uploading start ...\nNew file name : ", newFileName);
 
   // Listen for state changes, errors, and completion of the upload.
   uploadTask.on(
@@ -81,7 +104,7 @@ export async function uploadFile(file, onProgress, onError, onDone) {
       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       //console.log("Upload is " + progress + "% done");
-      onProgress(progress);
+      onUploadProgress(progress);
       switch (snapshot.state) {
         case "paused":
           //console.log("Upload is paused");
@@ -94,7 +117,7 @@ export async function uploadFile(file, onProgress, onError, onDone) {
     (error) => {
       // A full list of error codes is available at
       // https://firebase.google.com/docs/storage/web/handle-errors
-      onError(error);
+      onUploadError(error);
       switch (error.code) {
         case "storage/unauthorized":
           // User doesn't have permission to access the object
@@ -113,9 +136,31 @@ export async function uploadFile(file, onProgress, onError, onDone) {
     () => {
       // Upload completed successfully, now we can get the download URL
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        onDone(downloadURL);
+        onFileUploaded({
+          downloadURL: downloadURL,
+          storageFilePath: storageFilePath,
+        });
         //console.log("File available at", downloadURL);
       });
     }
   );
+}
+
+export async function deleteFile(filePath, onFileDeleted, onFileDeleteError) {
+  const storage = getStorage();
+
+  // Create a reference to the file to delete
+  const desertRef = ref(storage, filePath);
+
+  // Delete the file
+  deleteObject(desertRef)
+    .then(() => {
+      // File deleted successfully
+
+      onFileDeleted();
+    })
+    .catch((error) => {
+      // Uh-oh, an error occurred!
+      onFileDeleteError(error);
+    });
 }

@@ -3,6 +3,13 @@ import date from "../assets/icons/date.png";
 import location from "../assets/icons/location.png";
 import media from "../assets/icons/media.png";
 
+export function getRandomFileName() {
+  var timestamp = new Date().toISOString().replace(/[-:.]/g, "");
+  var random = ("" + Math.random()).substring(2, 8);
+  var random_number = timestamp + random;
+  return random_number;
+}
+
 export const KOOP_OPTIONS_ICONS = {
   budget: budget,
   date: date,
