@@ -1,7 +1,7 @@
 //React audio recorder
 import React, { useState, useRef } from "react";
 import { Line, Circle } from "rc-progress";
-import { uploadFile } from "../db/db";
+import { deleteFile, uploadFile } from "../db/db";
 
 function AudioRecorderPlayer() {
   const [recording, setRecording] = useState(false);
@@ -107,50 +107,123 @@ function AudioRecorderPlayer() {
   );
 }
 
-function FileUploader({}) {
+function FileUploader({ auto, id, notifyUploadDone }) {
   const [file, setFile] = useState();
+  const [pct, setpct] = useState(0);
+  const [uploadFinished, setUploadFinished] = useState(false);
+  const [showProgress, setShowProgress] = useState(false);
+  const [storageFilePath, setStorageFilePath] = useState();
 
   function onChange(e) {
-    setFile(e.target.files[0]);
+    const f = e.target.files[0];
+    setFile(f);
+
+    console.log(e);
+
+    if (auto) {
+      startUpload();
+    }
   }
 
-  function onProgress(pct) {
-    console.log("pct : ", pct);
+  function startUpload() {
+    console.log("startUpload");
+    setStorageFilePath(undefined);
+    setShowProgress(true);
+    setpct(0);
+    uploadFile(file, onUploadProgress, onUploadError, onFileUploaded);
+    setUploadFinished(false);
   }
 
-  function onError(error) {
-    console.log(error);
-    alert(error);
+  function onUploadProgress(pct) {
+    console.log("onProgress - pct : ", pct);
+    setpct(pct);
   }
 
-  function onDone(d) {
-    console.log(d);
-    alert(d);
+  function onUploadError(error) {
+    console.log("onError", error);
+    //alert(error);
+    setShowProgress(false);
+    setStorageFilePath(undefined);
+  }
+
+  function onFileUploaded(storeInfo) {
+    //console.log("onDone", JSON.stringify(stroreInfo));
+    //alert(downloadLink);
+    setShowProgress(false);
+    setUploadFinished(true);
+    setStorageFilePath(storeInfo.storageFilePath);
+    notifyUploadDone({ ...storeInfo, id: id });
+  }
+
+  function onFileDeleted() {
+    alert("File deleted!");
+    console.log("File deleted!");
+  }
+
+  function onFileDeleteError(error) {
+    console.log("onFileDeleteError", error);
+  }
+
+  async function onReset(e) {
+    const res = await deleteFile(
+      storageFilePath,
+      onFileDeleted,
+      onFileDeleteError
+    );
+    console.log("Res delete : ", res);
+    setStorageFilePath(undefined);
+    setUploadFinished(false);
+    setFile(undefined);
+    console.log(e);
   }
 
   async function onUploadFile(e) {
     if (file !== undefined) {
-      console.log("Uploading start ...");
-      const res = await uploadFile(file, onProgress, onError, onDone);
-      console.log("upload res => ", res);
+      startUpload();
     } else {
-      alert("Please select a file first!");
+      //alert("Please select a file first!");
     }
   }
 
   return (
+    <div className="flex flex-col">
+      <input
+        className={` ${uploadFinished ? "hidden" : ""} `}
+        type="file"
+        onChange={onChange}
+      />
+      <div className={` ${!uploadFinished ? "hidden" : ""} `}>
+        <button onClick={(e) => onReset(e)}>RE-UPLOAD</button>
+      </div>
+      <progress
+        className={` ${showProgress ? "" : "hidden"} `}
+        value={pct}
+        max={100}
+      />
+      {auto || <button onClick={onUploadFile}>Upload File</button>}
+    </div>
+  );
+}
+
+function MultiFileUploaderCont({ notifyUploadDone, count = 3 }) {
+  return (
     <div>
-      <input type="file" onChange={onChange} />
-      <button onClick={onUploadFile}>Upload File</button>
+      {[...Array(count)].fill(0).map((it, i) => (
+        <FileUploader auto id={i} notifyUploadDone={notifyUploadDone} />
+      ))}
     </div>
   );
 }
 
 export default function PageTest({}) {
+  function notifyUploadDone(stroreInfo) {
+    console.log(`notifyUploadDone ${JSON.stringify(stroreInfo)}`);
+  }
+
   return (
     <div>
       {/* <AudioRecorderPlayer /> */}
-      <FileUploader />
+      <MultiFileUploaderCont notifyUploadDone={notifyUploadDone} />
     </div>
   );
 }
