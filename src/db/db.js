@@ -19,7 +19,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Firestore, db, auth } from "../db/fb.config";
 
 import { signInWithPhoneNumber } from "firebase/auth";
-import { getRandomFileName } from "../utils/utils";
+import { COLLECTION_NAME, getRandomFileName } from "../utils/utils";
 
 export async function LoadKoops() {
   const citiesCol = collection(Firestore, "koops");

@@ -35,6 +35,8 @@ export const ROUTES = {
   TEST_REC: { path: "/test_rec", title: "Test Rect" },
 };
 
+export const COLLECTION_NAME = { 
+  KOOPS:'koops'}
 /*
 
   <Link to={ROUTES.MY_ACCOUNT.path}>My Account</Link>
