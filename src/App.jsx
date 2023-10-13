@@ -25,7 +25,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter basename="/kooop">
+    <BrowserRouter >
       <Routes>
         <Route path="/" element={loggedIn ? <Layout /> : <PageLogin />}>
           <Route index element={<PageHome />} />
