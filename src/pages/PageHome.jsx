@@ -252,7 +252,7 @@ export default function PageHome({}) {
 
         {mode === "s" && (
           <div>
-            <section className="main-cont md:flex md:flex-wrap">
+            <section className="main-cont m-2 md:flex md:flex-wrap">
               {koops.map((data, i) => (
                 <Koop
                   key={i}

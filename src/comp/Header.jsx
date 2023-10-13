@@ -16,7 +16,7 @@ export default function Header({ onLogoClick, small, user }) {
       
       `}
       >
-        <div className={`self-end m-4 ${small ? " flex-1 " : ""}  `}>
+        <div className={`  md:max-w-[900px] px-4 flex flex-row-reverse items-center justify-between  w-full   m-4 ${small ? " flex-1 " : ""}  `}>
           <Link to={ROUTES.MY_ACCOUNT.path}>
             <img
               alt="My Account"
@@ -24,20 +24,21 @@ export default function Header({ onLogoClick, small, user }) {
               className="rounded-full w-[30pt] mx-auto hover:outline cursor-pointer hover:outline-white  "
             />
           </Link>
-          <div className="text-center text-sm bg-white text-sky-500 rounded-lg w-fit mx-auto px-1 my-2 ">
+         {/*  <div className="text-center text-sm bg-white text-sky-500 rounded-lg w-fit mx-auto px-1 my-2 ">
             <div>{user.displayname}</div>
             <div> {user.phone}</div>
-          </div>
-        </div>
-        <Link to="/">
+          </div> */}
+           <Link to="/">
           <img
-            className={`cursor-pointer ${small ? " flex-3 " : " -mt-[50pt] "}`}
+            className={`cursor-pointer   `}
             src={koop}
-            width={small ? 160 : 100}
+            width={80}
           />
         </Link>
+        </div>
+       
         <p
-          className={` p-2 text-center  transition-colors ease-in-out duration-150
+          className={` hidden p-2 text-center  transition-colors ease-in-out duration-150
           
           ${small ? "text-sm flex-1 " : ""}
           
@@ -48,7 +49,7 @@ export default function Header({ onLogoClick, small, user }) {
       </div>
 
       <div
-        className={` gap-2 py-2 
+        className={` hidden gap-2 py-2 
       
       ${small ? " h-[60pt] " : " h-[80pt] "}
       

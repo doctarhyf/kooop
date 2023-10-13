@@ -109,7 +109,7 @@ export default function PageViewKoop({ onPageChange }) {
 
           {koop.date?.length > 0 && (
             <Section title={"Date"} icon={date}>
-              <p>{koop.text}</p>
+              <p>{koop.date}</p>
             </Section>
           )}
 
