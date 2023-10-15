@@ -17,46 +17,7 @@ function Section({ icon, title, children, small }) {
   );
 }
 
-function clBtn(color) {
-  const colors = {
-    green: {
-      bg: "bg-green-500",
-      border: "border-green-500",
-      text: "text-green-500",
-      hover: {
-        bg: "bg-green-600",
-      },
-    },
-    yellow: {
-      bg: "bg-yellow-500",
-      border: "border-yellow-500",
-      text: "text-yellow-500",
-      hover: {
-        bg: "bg-yellow-600",
-      },
-    },
-    blue: {
-      bg: "bg-blue-500",
-      border: "border-blue-500",
-      text: "text-blue-500",
-      hover: {
-        bg: "bg-blue-600",
-      },
-    },
-    red: {
-      bg: "bg-red-500",
-      border: "border-red-500",
-      text: "text-red-500",
-      hover: {
-        bg: "bg-red-600",
-      },
-    },
-  };
 
-  let cl = `text-sm border ${colors[color].border} p-1 ${colors[color].text} rounded-lg hover:bg-green-500 hover:text-white`;
-
-  return cl;
-}
 
 export default function PageViewKoop({ onPageChange }) {
   const location = useLocation();
@@ -81,18 +42,7 @@ export default function PageViewKoop({ onPageChange }) {
   return (
     <div className={`${clPageStyle} p-4 `}>
       <div className="btns-cont p-2 flex flex-col md:flex-row gap-4">
-        <button
-          onClick={(e) => navigate(ROUTES.HOME.path)}
-          className={clBtn("green")}
-        >
-          HOME
-        </button>
-        <button className={clBtn("green")}>Contact Info</button>
-        <button onClick={(e) => onAddKoopToFav()} className={clBtn("yellow")}>
-          FAV
-        </button>
-        <button className={clBtn("yellow")}>SHARE</button>
-        <button className={clBtn("yellow")}>REPORT</button>
+        Menu Item
       </div>
 
       <div className="flex flex-col md:flex-row">
