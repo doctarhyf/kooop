@@ -7,9 +7,9 @@ export default function Koop({ data, onKoopClicked }) {
   return (
     <div
       onClick={(e) => onKoopClicked(data)}
-      className="border-sky-100 md:w-[50%] h-fit  flex flex-col gap-2 cursor-pointer border my-2 p-2 rounded-lg hover:border-green-500 shadow-black/10  shadow-lg hover:bg-sky-slate-200"
+      className=" h-fit  border-sky-100 md:w-[50%]  flex flex-col gap-2 cursor-pointer border my-2 p-2 rounded-lg hover:border-green-500 shadow-black/10  shadow-lg hover:bg-sky-slate-200"
     >
-      <div className=" flex gap-2 text-sm text-neutral-800">
+      <div className="  flex gap-2 text-sm text-neutral-800">
         {budget && budget !== "-1" && (
           <OptionItem text={budget + " $"} icon={KOOP_OPTIONS_ICONS.budget} />
         )}

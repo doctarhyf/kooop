@@ -41,8 +41,7 @@ export default function PageHome({}) {
   }, []);
 
   async function loadKoops() {
-
-    setKoops([])
+    setKoops([]);
     setkoopsf([]);
     setLoadError(false);
     setFetchingData(true);
@@ -109,10 +108,10 @@ export default function PageHome({}) {
     console.log(res);
   }
 
-  function searchq(q){
-    
-   
-    const f = koops.filter((k,i) => k.text.toLowerCase().includes(q.toLowerCase()))
+  function searchq(q) {
+    const f = koops.filter((k, i) =>
+      k.text.toLowerCase().includes(q.toLowerCase())
+    );
 
     setkoopsf(f);
   }
@@ -149,7 +148,6 @@ export default function PageHome({}) {
               onKeyUp={(e) => {
                 if (e.key === "Enter") onSearchClick(null);
                 searchq(e.target.value);
-
               }}
               className="h-[30px]  outline-none p-2 flex-grow rounded-md "
               type="search"
@@ -265,7 +263,7 @@ export default function PageHome({}) {
 
         {mode === "s" && (
           <div>
-            <section className="main-cont m-2 md:flex md:flex-wrap">
+            <section className=" flex flex-col md:flex-row flex-wrap ">
               {koopsf.map((data, i) => (
                 <Koop
                   key={i}
@@ -274,7 +272,6 @@ export default function PageHome({}) {
                 />
               ))}
             </section>
-          
           </div>
         )}
       </main>
