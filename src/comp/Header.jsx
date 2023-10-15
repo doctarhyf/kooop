@@ -4,10 +4,17 @@ import rhyf from "../assets/docta.jpg";
 import "../App2.css";
 import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "../utils/utils";
+import {
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
+  Button,
+} from "@material-tailwind/react";
 
 export default function Header({ onLogoClick, small, user }) {
   return (
-    <div className="header bg-sky-500 flex flex-col">
+    <div className="header bg-blue-500 flex flex-col ">
       <div
         className={`cont-logo  items-center flex
       
@@ -16,25 +23,42 @@ export default function Header({ onLogoClick, small, user }) {
       
       `}
       >
-        <div className={`  md:max-w-[900px] px-4 flex flex-row-reverse items-center justify-between  w-full   m-4 ${small ? " flex-1 " : ""}  `}>
-          <Link to={ROUTES.MY_ACCOUNT.path}>
+        <div className={` flex  md:max-w-[900px] px-4  items-center justify-between  w-full   m-4 ${small ? " flex-1 " : ""}  `}>
+          
+          
+        <Link to="/">
             <img
-              alt="My Account"
-              src={rhyf}
-              className="rounded-full w-[30pt] mx-auto hover:outline cursor-pointer hover:outline-white  "
+              className={`cursor-pointer   `}
+              src={koop}
+              width={80}
             />
           </Link>
-         {/*  <div className="text-center text-sm bg-white text-sky-500 rounded-lg w-fit mx-auto px-1 my-2 ">
-            <div>{user.displayname}</div>
-            <div> {user.phone}</div>
-          </div> */}
-           <Link to="/">
-          <img
-            className={`cursor-pointer   `}
-            src={koop}
-            width={80}
-          />
-        </Link>
+
+
+          <Menu>
+
+
+            <MenuHandler>
+              <div>
+              <img
+                alt="My Account"
+                src={rhyf}
+                className="rounded-full w-[30pt] mx-auto hover:outline cursor-pointer hover:outline-white  "
+              />
+              </div>
+            </MenuHandler>
+
+            <MenuList>
+            
+            
+            {
+              Object.values(ROUTES).map((rt, i) => rt.showInMenu && <MenuItem  key={i} >{rt.title}</MenuItem>)
+            }
+          </MenuList>
+
+
+          </Menu>
+
         </div>
        
         <p

@@ -113,16 +113,16 @@ export default function PageHome({}) {
           <div className="cont-search-mode">
             <button
               className={`${
-                mode === "s" ? " bg-sky-500 text-white " : "  "
-              } hover:bg-sky-500 hover:text-white  p-1 rounded-t-lg `}
+                mode === "s" ? " bg-blue-500 text-white " : "  "
+              } hover:bg-blue-500 hover:text-white  p-1 rounded-t-lg `}
               onClick={(e) => onSetMode("s")}
             >
               Search
             </button>
             <button
               className={`  ${
-                mode === "p" ? " bg-sky-500 text-white " : ""
-              }  p-1 hover:bg-sky-500 hover:text-white rounded-t-lg`}
+                mode === "p" ? " bg-blue-500 text-white " : ""
+              }  p-1 hover:bg-blue-500 hover:text-white rounded-t-lg`}
               onClick={(e) => onSetMode("p")}
             >
               Post
@@ -131,7 +131,7 @@ export default function PageHome({}) {
           <div
             className={` flex ${
               mode === "p" ? "rounded-lg" : ""
-            } cont-search-input bg-sky-500 p-2 rounded-b-lg rounded-r-lg `}
+            } cont-search-input bg-blue-500 p-2 rounded-b-lg rounded-r-lg `}
           >
             <input
               onChange={(e) => setq(e.target.value)}
