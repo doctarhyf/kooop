@@ -50,10 +50,10 @@ export default function Header({ onLogoClick, small, user }) {
 
             <MenuList>
             
-            
             {
-              Object.values(ROUTES).map((rt, i) => rt.showInMenu && <MenuItem  key={i} >{rt.title}</MenuItem>)
+              Object.values(ROUTES).map((rt, i) => rt.showInMenu && <MenuItem   key={i} >{rt.title}</MenuItem>)
             }
+
           </MenuList>
 
 

@@ -45,11 +45,13 @@ export default function PageViewKoop({ onPageChange }) {
         Menu Item
       </div>
 
-      <div className="flex flex-col md:flex-row">
-        <div className="cont flex-1">
+      <div className=" flex flex-col md:flex-row">
+        <div className="cont flex-1  "  >
           <Section title={"Description"} icon={info}>
             <p>{koop.text}</p>
           </Section>
+
+<div className=" rounded-md  space-x-4 flex border border-gray-400 p-2 " >
 
           {koop.budget?.length > 0 && (
             <Section title={"Budjet"} icon={budget}>
@@ -74,9 +76,12 @@ export default function PageViewKoop({ onPageChange }) {
               <p>{JSON.stringify(koop.media)}</p>
             </Section>
           )}
+
+</div>
+
         </div>
 
-        <div className="ad-space md:w-[140px] bg-slate-400 min-h-[120pt] md:min-h-[240pt]">
+        <div className="ad-space md:w-[140px] bg-gray-400 min-h-[120pt] md:min-h-[240pt]">
           ad-space
         </div>
       </div>
