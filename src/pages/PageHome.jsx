@@ -32,6 +32,7 @@ export default function PageHome({}) {
 
   const [showOptions, setShowOptions] = useState(false);
   const [koops, setKoops] = useState([]);
+  const [koopsf, setkoopsf] = useState([]);
   const [fetchingData, setFetchingData] = useState(true);
   const [loadError, setLoadError] = useState(false);
 
@@ -40,12 +41,16 @@ export default function PageHome({}) {
   }, []);
 
   async function loadKoops() {
+
+    setKoops([])
+    setkoopsf([]);
     setLoadError(false);
     setFetchingData(true);
 
     try {
       const koops = await LoadKoops();
       setKoops(koops);
+      setkoopsf(koops);
       console.log(koops);
       setFetchingData(false);
     } catch (e) {
@@ -104,6 +109,14 @@ export default function PageHome({}) {
     console.log(res);
   }
 
+  function searchq(q){
+    
+   
+    const f = koops.filter((k,i) => k.text.toLowerCase().includes(q.toLowerCase()))
+
+    setkoopsf(f);
+  }
+
   return (
     <div className={clPageStyle}>
       <main className="p-4 ">
@@ -111,16 +124,16 @@ export default function PageHome({}) {
           <div className="cont-search-mode">
             <button
               className={`${
-                mode === "s" ? " bg-sky-500 text-white " : "  "
-              } hover:bg-sky-500 hover:text-white  p-1 rounded-t-lg `}
+                mode === "s" ? " bg-blue-500 text-white " : "  "
+              } hover:bg-blue-500 hover:text-white  p-1 rounded-t-lg `}
               onClick={(e) => onSetMode("s")}
             >
               Search
             </button>
             <button
               className={`  ${
-                mode === "p" ? " bg-sky-500 text-white " : ""
-              }  p-1 hover:bg-sky-500 hover:text-white rounded-t-lg`}
+                mode === "p" ? " bg-blue-500 text-white " : ""
+              }  p-1 hover:bg-blue-500 hover:text-white rounded-t-lg`}
               onClick={(e) => onSetMode("p")}
             >
               Post
@@ -129,14 +142,16 @@ export default function PageHome({}) {
           <div
             className={` flex ${
               mode === "p" ? "rounded-lg" : ""
-            } cont-search-input bg-sky-500 p-2 rounded-b-lg rounded-r-lg `}
+            } cont-search-input border border-blue-500 p-2 rounded-b-lg rounded-r-lg `}
           >
             <input
               onChange={(e) => setq(e.target.value)}
               onKeyUp={(e) => {
                 if (e.key === "Enter") onSearchClick(null);
+                searchq(e.target.value);
+
               }}
-              className="h-[30px] outline-none px-1 flex-grow rounded-md "
+              className="h-[30px]  outline-none p-2 flex-grow rounded-md "
               type="search"
               onFocus={(e) => setqFocused(true)}
               onBlur={(e) => setqFocused(false)}
@@ -251,7 +266,7 @@ export default function PageHome({}) {
         {mode === "s" && (
           <div>
             <section className="main-cont m-2 md:flex md:flex-wrap">
-              {koops.map((data, i) => (
+              {koopsf.map((data, i) => (
                 <Koop
                   key={i}
                   onKoopClicked={(e) => onKoopClicked(data)}

@@ -23,16 +23,16 @@ export const PAGES = {
 };
 
 export const ROUTES = {
-  HOME: { path: "/", title: "Home" },
-  MY_ACCOUNT: { path: "/my_acc", title: "My Account" },
-  VIEW_KOOP: { path: "/view", title: "Koop" },
-  SUBCRIPTION: { path: "/sub", title: "Subscription" },
+  HOME: { path: "/", title: "Home", showInMenu:true },
+  MY_ACCOUNT: { path: "/my_acc", title: "My Account", showInMenu:true },
+  VIEW_KOOP: { path: "/view", title: "Koop", showInMenu:false },
+  SUBCRIPTION: { path: "/sub", title: "Subscription", showInMenu:true },
+  FAV: { path: "/fav", title:"My Favorites", showInMenu:true },
+  LOGIN: { path: "/login", title: "Login", showInMenu:false },
+  LEGAL: { path: "/legal", title: "Legal", showInMenu:false },
+  INTRO: { path: "/intro", title: "Intro", showInMenu:false },
 
-  LOGIN: { path: "/login", title: "My Account" },
-  LEGAL: { path: "/legal", title: "Koop" },
-  INTRO: { path: "/intro", title: "Subscription" },
-
-  TEST_REC: { path: "/test_rec", title: "Test Rect" },
+  TEST_REC: { path: "/test_rec", title: "Test Rect", showInMenu:true },
 };
 
 export const COLLECTION_NAME = { 
