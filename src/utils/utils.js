@@ -27,7 +27,7 @@ export const ROUTES = {
   MY_ACCOUNT: { path: "/my_acc", title: "My Account", showInMenu:true },
   VIEW_KOOP: { path: "/view", title: "Koop", showInMenu:false },
   SUBCRIPTION: { path: "/sub", title: "Subscription", showInMenu:true },
-
+  FAV: { path: "/fav", title:"My Favorites", showInMenu:true },
   LOGIN: { path: "/login", title: "Login", showInMenu:false },
   LEGAL: { path: "/legal", title: "Legal", showInMenu:false },
   INTRO: { path: "/intro", title: "Intro", showInMenu:false },
