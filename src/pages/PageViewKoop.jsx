@@ -51,7 +51,7 @@ export default function PageViewKoop({ onPageChange }) {
             <p>{koop.text}</p>
           </Section>
 
-<div className=" rounded-md  space-x-4 flex border border-gray-400 p-2 " >
+        <div className=" rounded-md  space-x-4 flex border border-gray-400 p-2 " >
 
           {koop.budget?.length > 0 && (
             <Section title={"Budjet"} icon={budget}>
@@ -77,7 +77,7 @@ export default function PageViewKoop({ onPageChange }) {
             </Section>
           )}
 
-</div>
+        </div> 
 
         </div>
 
