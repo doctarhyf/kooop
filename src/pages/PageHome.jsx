@@ -6,6 +6,7 @@ import Header from "../comp/Header";
 import Koop from "../comp/Koop";
 import { AddKoop, LoadKoops } from "../db/db";
 import LoadError from "../comp/LoadError";
+import MyImageGallery from "../comp/MyImageGallery";
 import {
   GRV,
   KOOP_OPTIONS_ICONS,
@@ -90,6 +91,8 @@ export default function PageHome({}) {
   const navigate = useNavigate();
 
   function onKoopClicked(koop) {
+    // UpdateItem();
+
     navigate(ROUTES.VIEW_KOOP.path, { state: { koop: koop } });
   }
 
@@ -119,6 +122,9 @@ export default function PageHome({}) {
   return (
     <div className={clPageStyle}>
       <main className="p-4 ">
+        <div>
+          <MyImageGallery />
+        </div>
         <section className="sect-search">
           <div className="cont-search-mode">
             <button
