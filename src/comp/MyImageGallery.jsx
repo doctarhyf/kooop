@@ -6,6 +6,10 @@ import "../App.css";
 
 const imgz = [
   {
+    original: "./koopintro.jpg",
+    thumbnail: "./koopintro.jpg",
+  },
+  {
     original: "https://fretur.us/diapo/alfa.jpg",
     thumbnail: "https://fretur.us/diapo/alfa.jpg",
   },
@@ -24,7 +28,7 @@ const imgz = [
 ];
 
 export default function MyImageGallery({ images }) {
-  const [content, setcontent] = useState([
+  /*   const [content, setcontent] = useState([
     {
       image:
         "https://carsguide-res.cloudinary.com/image/upload/f_auto,fl_lossy,q_auto,t_cg_hero_large/v1/editorial/segment_review/hero_image/2023-Alfa-Romeo-Stelvio-Quadrifoglio-SUV-Blue-1001x565-%281%29.jpg",
@@ -53,7 +57,7 @@ export default function MyImageGallery({ images }) {
       description: "Transferts des vos colis USA-RDC.",
       button: "Learn More",
     },
-  ]);
+  ]); */
 
   useEffect(() => {
     loadItems();
