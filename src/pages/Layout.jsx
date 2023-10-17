@@ -17,7 +17,7 @@ const Layout = () => {
 
   return (
     <div className=" ">
-      {/* <DebugMenu /> */}
+      <DebugMenu />
 
       <Header user={user} />
 
