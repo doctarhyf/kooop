@@ -22,6 +22,18 @@ const clCard = ""; //
 const clOptions =
   "shadow-lg shadow-black/20 p-2 border border-slate-300 rounded-lg mb-4";
 
+const colors = {
+  blue: ["text-blue-500", "hover:bg-blue-500"],
+  red: ["text-red-500", "hover:bg-red-500"],
+  green: ["text-green-500", "hover:bg-green-500"],
+  amber: ["text-amber-500", "hover:bg-amber-500"],
+  pink: ["text-pink-500", "hover:bg-pink-500"],
+  indigo: ["text-indigo-500", "hover:bg-indigo-500"],
+  purple: ["text-purple-500", "hover:bg-purple-500"],
+  teal: ["text-teal-500", "hover:bg-teal-500"],
+  cyan: ["text-cyan-500", "hover:bg-cyan-500"],
+};
+
 export default function PageHome({}) {
   const [q, setq] = useState("");
   const [qfocused, setqFocused] = useState(false);
@@ -179,16 +191,14 @@ export default function PageHome({}) {
           <section className="sect-koop-details py-4">
             <div className="pb-4">
               <div>Tags</div>
-              <div className="flex py-2 gap-2 overflow-scroll scroll-smooth">
-                <Chip color="blue" value="blue" />
-                <Chip color="red" value="red" />
-                <Chip color="green" value="green" />
-                <Chip color="amber" value="amber" />
-                <Chip color="pink" value="pink" />
-                <Chip color="indigo" value="indigo" />
-                <Chip color="purple" value="purple" />
-                <Chip color="teal" value="teal" />
-                <Chip color="cyan" value="cyan" />
+              <div className="px-1 flex py-2 gap-2 overflow-scroll scroll-smooth">
+                {Object.entries(colors).map((c, i) => (
+                  <button
+                    className={` ${c[1][0]} outline py-1 outline-1 text-sm font-bold ${c[1][1]} hover:text-white px-3 rounded-lg`}
+                  >
+                    {c[0]}
+                  </button>
+                ))}{" "}
               </div>
             </div>
 
