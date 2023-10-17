@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import SectionTitle from "../comp/SectionTitle";
 import { Chip } from "@material-tailwind/react";
 import "../App.css";
+import { Visibility } from "@mui/icons-material";
 
 const clCard = ""; //
 const clOptions =
@@ -137,7 +138,11 @@ export default function PageHome({}) {
   return (
     <div className={clPageStyle}>
       <main className="p-4 ">
-        <div>
+        <div
+          className={`border ${
+            qfocused ? "hidden" : "visible"
+          } transition  duration-[2500] ease-in-out   `}
+        >
           <MyImageGallery />
         </div>
 
