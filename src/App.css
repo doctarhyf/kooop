@@ -24,3 +24,12 @@ ul.links-cont li:hover {
   position: relative;
   height: calc(100vh - 40px);
 }
+
+.tags::-webkit-scrollbar {
+  display: none;
+}
+
+.tags {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

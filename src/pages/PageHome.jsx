@@ -18,6 +18,8 @@ import loading from "../assets/icons/progress.gif";
 import { useNavigate } from "react-router-dom";
 import SectionTitle from "../comp/SectionTitle";
 import { Chip } from "@material-tailwind/react";
+import "../App.css";
+
 const clCard = ""; //
 const clOptions =
   "shadow-lg shadow-black/20 p-2 border border-slate-300 rounded-lg mb-4";
@@ -138,6 +140,7 @@ export default function PageHome({}) {
         <div>
           <MyImageGallery />
         </div>
+
         <section className="sect-search">
           <div className="cont-search-mode">
             <button
@@ -191,7 +194,7 @@ export default function PageHome({}) {
           <section className="sect-koop-details py-4">
             <div className="pb-4">
               <div>Tags</div>
-              <div className="px-1 flex py-2 gap-2 overflow-scroll scroll-smooth">
+              <div className=" tags px-1 flex py-2 gap-2 overflow-scroll scroll-smooth">
                 {Object.entries(colors).map((c, i) => (
                   <button
                     className={` ${c[1][0]} outline py-1 outline-1 text-sm font-bold ${c[1][1]} hover:text-white px-3 rounded-lg`}
