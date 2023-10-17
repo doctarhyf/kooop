@@ -74,29 +74,54 @@ export default function PageLogin() {
   };
 
   return (
-    <div className=" ">
-      <DebugMenu />
+    <div className=" flex md:flex-none   h-[100vh] bg-gradient-to-b from-blue-500 to-white ">
+      {false && <DebugMenu />}
 
-      <div>Sign in with phone number</div>
-
-      <div>Phone number</div>
-      <input
-        type="tel"
-        onChange={(e) => setPhoneNumber(e.target.value)}
-        value={phoneNumber}
-      />
-      <p>Please enter your phone number</p>
-
-      {showOTP && (
-        <div>
-          <div>OTP</div>
-          <input type="text" maxLength={6} onChange={verifyOTP} />
+      <div className="mx-auto max-w-[360px]">
+        <div className="">
+          <img src={koop} className="mx-auto" />
+          <p className="p-4 text-center text-gray-800 font-serif italic">
+            1000 + des services et koops a votre pointe du doigts
+          </p>
         </div>
-      )}
 
-      {!showOTP && <button onClick={(e) => requestOTP(e)}>Request OTP</button>}
+        <div className=" rounded-md shadow-md p-4 bg-white">
+          <div className="text-blue-500 text-xl ">
+            Sign in with phone number
+          </div>
 
-      <div id="recaptcha-cont"></div>
+          <div className="font-bold">Phone number</div>
+          <input
+            className=" outline-0 hover:border-blue-500 focus:border-b-blue-600 p-2 border rounded-md border-gray-400 w-full"
+            type="tel"
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            value={phoneNumber}
+          />
+          <p className="text-sm text-gray-600">
+            Please enter your phone number
+          </p>
+
+          {showOTP && (
+            <div>
+              <div>OTP</div>
+              <input type="text" maxLength={6} onChange={verifyOTP} />
+            </div>
+          )}
+
+          {!showOTP && (
+            <button
+              className="border text-blue-500 hover:text-white hover:bg-blue-500 border-blue-500 rounded-md p-1 mx-auto"
+              onClick={(e) => requestOTP(e)}
+            >
+              Request OTP
+            </button>
+          )}
+
+          <div id="recaptcha-cont"></div>
+        </div>
+      </div>
+
+      <div className={` w-[0%] md:w-[50%] lg:w-[60%] bg-purple-500  `}></div>
     </div>
   );
 }

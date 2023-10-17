@@ -198,10 +198,11 @@ export default function PageHome({}) {
         {mode === "p" && (
           <section className="sect-koop-details py-4">
             <div className="pb-4">
-              <div>Tags</div>
-              <div className=" tags px-1 flex py-2 gap-2 overflow-scroll scroll-smooth">
+              <div>Add Tags</div>
+              <div className=" tags px-1 flex flex-wrap md:flex-nowrap py-2 gap-2 overflow-scroll scroll-smooth">
                 {Object.entries(colors).map((c, i) => (
                   <button
+                    key={i}
                     className={` ${c[1][0]} outline py-1 outline-1 text-sm font-bold ${c[1][1]} hover:text-white px-3 rounded-lg`}
                   >
                     {c[0]}
@@ -301,7 +302,7 @@ export default function PageHome({}) {
 
         <LoadError msg={loadError} error={loadError} />
 
-        {mode === "s" && (
+        {mode === "s" && !qfocused && (
           <div>
             <section className=" flex flex-col md:flex-row flex-wrap ">
               {koopsf.map((data, i) => (
@@ -312,6 +313,12 @@ export default function PageHome({}) {
                 />
               ))}
             </section>
+          </div>
+        )}
+
+        {mode === "s" && qfocused && (
+          <div className="text-center text-gray-400">
+            Search koops 1000 + merch and services ...
           </div>
         )}
       </main>

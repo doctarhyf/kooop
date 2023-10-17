@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import koop from "../assets/koop.png";
 import rhyf from "../assets/docta.jpg";
 import "../App2.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { ROUTES } from "../utils/utils";
 import {
   Menu,
@@ -23,44 +23,39 @@ export default function Header({ onLogoClick, small, user }) {
       
       `}
       >
-        <div className={` flex  md:max-w-[900px] px-4  items-center justify-between  w-full   m-4 ${small ? " flex-1 " : ""}  `}>
-          
-          
-        <Link to="/">
-            <img
-              className={`cursor-pointer   `}
-              src={koop}
-              width={80}
-            />
+        <div
+          className={` flex  md:max-w-[900px] px-4  items-center justify-between  w-full   m-4 ${
+            small ? " flex-1 " : ""
+          }  `}
+        >
+          <Link to="/">
+            <img className={`cursor-pointer   `} src={koop} width={80} />
           </Link>
 
-
           <Menu>
-
-
             <MenuHandler>
               <div>
-              <img
-                alt="My Account"
-                src={rhyf}
-                className="rounded-full w-[30pt] mx-auto hover:outline cursor-pointer hover:outline-white  "
-              />
+                <img
+                  alt="My Account"
+                  src={rhyf}
+                  className="rounded-full w-[30pt] mx-auto hover:outline cursor-pointer hover:outline-white  "
+                />
               </div>
             </MenuHandler>
 
             <MenuList>
-            
-            {
-              Object.values(ROUTES).map((rt, i) => rt.showInMenu && <MenuItem   key={i} >{rt.title}</MenuItem>)
-            }
-
-          </MenuList>
-
-
+              {Object.values(ROUTES).map(
+                (rt, i) =>
+                  rt.showInMenu && (
+                    <NavLink to={rt.path}>
+                      <MenuItem>{rt.title}</MenuItem>
+                    </NavLink>
+                  )
+              )}
+            </MenuList>
           </Menu>
-
         </div>
-       
+
         <p
           className={` hidden p-2 text-center  transition-colors ease-in-out duration-150
           

@@ -34,6 +34,7 @@ export default function PageMyAccount() {
       <div className="menu max-w-[1100px]  shadow-md shadow-black/50 flex justify-around items-center min-h-[80pt] bg-white p-4 border  border-slate-200 rounded-md mx-8 md:mx-auto -mt-[20pt] ">
         {MENUS.map((m, i) => (
           <div
+            key={i}
             onClick={(e) => setCurSection(m.name)}
             className="cursor-pointer group"
           >

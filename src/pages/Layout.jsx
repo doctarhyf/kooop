@@ -16,15 +16,15 @@ const Layout = () => {
   }, []);
 
   return (
-    <>
+    <div className=" ">
       {/* <DebugMenu /> */}
 
       <Header user={user} />
-     
+
       <Outlet />
 
       <Footer />
-    </>
+    </div>
   );
 };
 
