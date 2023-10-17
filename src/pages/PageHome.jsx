@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "../App2.css";
-import post from "../assets/icons/reqserv.png";
-import search from "../assets/icons/search.png";
+import post from "../assets/icons/send.svg";
+import search from "../assets/icons/seach.svg";
 import Header from "../comp/Header";
 import Koop from "../comp/Koop";
 import { AddKoop, LoadKoops } from "../db/db";
@@ -17,6 +17,7 @@ import {
 import loading from "../assets/icons/progress.gif";
 import { useNavigate } from "react-router-dom";
 import SectionTitle from "../comp/SectionTitle";
+import { Chip } from "@material-tailwind/react";
 const clCard = ""; //
 const clOptions =
   "shadow-lg shadow-black/20 p-2 border border-slate-300 rounded-lg mb-4";
@@ -175,7 +176,22 @@ export default function PageHome({}) {
         </section>
 
         {mode === "p" && (
-          <section className="sect-koop-details">
+          <section className="sect-koop-details py-4">
+            <div className="pb-4">
+              <div>Tags</div>
+              <div className="flex py-2 gap-2 overflow-scroll scroll-smooth">
+                <Chip color="blue" value="blue" />
+                <Chip color="red" value="red" />
+                <Chip color="green" value="green" />
+                <Chip color="amber" value="amber" />
+                <Chip color="pink" value="pink" />
+                <Chip color="indigo" value="indigo" />
+                <Chip color="purple" value="purple" />
+                <Chip color="teal" value="teal" />
+                <Chip color="cyan" value="cyan" />
+              </div>
+            </div>
+
             <div>
               <input
                 type="checkbox"
