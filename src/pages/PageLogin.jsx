@@ -12,7 +12,8 @@ import DebugMenu from "../comp/DebugMenu";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { auth } from "../db/fb.config";
 export default function PageLogin() {
-  //const [otp, setOTP] = useState("");
+  const [error, seterror] = useState(false);
+  const [otp, setOTP] = useState("");
   const [showOTP, setShowOTP] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("+243893092849");
   const [images, setimages] = useState([]);
@@ -30,8 +31,6 @@ export default function PageLogin() {
     setimages(pics);
     console.log(pics);
   }
-
-  const refOTP = useRef();
 
   const requestOTP = (e) => {
     e.preventDefault();
@@ -64,8 +63,8 @@ export default function PageLogin() {
   }
 
   const verifyOTP = (e) => {
-    let otp = e.target.value;
-    //setOTP(otp);
+    seterror(false);
+    console.log(otp);
 
     if (otp.length === 6) {
       console.log(otp);
@@ -73,6 +72,7 @@ export default function PageLogin() {
       confirmationResult
         .confirm(otp)
         .then((result) => {
+          seterror(false);
           const user = result.user;
           console.log("user", user);
 
@@ -84,6 +84,7 @@ export default function PageLogin() {
           }
         })
         .catch((error) => {
+          seterror(error);
           console.log("error => ", error);
         });
     }
@@ -120,22 +121,47 @@ export default function PageLogin() {
             <div>
               <div>OTP</div>
               <input
+                value={otp}
+                onChange={(e) => setOTP(e.target.value)}
                 type="text"
                 maxLength={6}
-                onChange={verifyOTP}
                 className=" outline-0 hover:border-blue-500 focus:border-b-blue-600 p-2 border rounded-md border-gray-400 w-full"
               />
+              <p
+                className={`text-sm  rounded-md ${
+                  error ? "my-4 text-white p-2 bg-red-500" : "text-gray-600"
+                } `}
+              >
+                {error
+                  ? "OTP error please check the OTP in the SMS received"
+                  : "Please enter the OTP received by SMS"}
+              </p>
             </div>
           )}
 
-          {!showOTP && (
+          {/*  {!showOTP && ( */}
+          <button
+            disabled={otp.replace(" ", "").length !== 6 && showOTP}
+            className={` ${
+              showOTP && otp.replace(" ", "").length !== 6
+                ? "disabled:bg-gray-400 disabled:border-gray-600 disabled:text-gray-300"
+                : ""
+            }   border text-blue-500 hover:text-white hover:bg-blue-500 border-blue-500 rounded-md p-1 mx-auto`}
+            onClick={(e) => (showOTP ? verifyOTP(e) : requestOTP(e))}
+          >
+            {showOTP ? "Verify OTP" : "Request OTP"}
+          </button>
+
+          {showOTP && (
             <button
-              className="border text-blue-500 hover:text-white hover:bg-blue-500 border-blue-500 rounded-md p-1 mx-auto"
-              onClick={(e) => requestOTP(e)}
+              className="border text-red-500 hover:text-white hover:bg-red-500 border-red-500 rounded-md p-1 mx-auto"
+              onClick={(e) => setShowOTP(false)}
             >
-              Request OTP
+              RETRY
             </button>
           )}
+
+          {/*  )} */}
 
           <div id="recaptcha-cont"></div>
         </div>
