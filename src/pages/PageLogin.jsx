@@ -15,6 +15,22 @@ export default function PageLogin() {
   //const [otp, setOTP] = useState("");
   const [showOTP, setShowOTP] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("+243893092849");
+  const [images, setimages] = useState([]);
+
+  useEffect(() => {
+    loadImages();
+  }, []);
+
+  async function loadImages() {
+    setimages([]);
+
+    const resp = await fetch("https://picsum.photos/v2/list");
+    const pics = await resp.json();
+
+    setimages(pics);
+    console.log(pics);
+  }
+
   const refOTP = useRef();
 
   const requestOTP = (e) => {
@@ -74,18 +90,17 @@ export default function PageLogin() {
   };
 
   return (
-    <div className=" flex md:flex-none   h-[100vh] bg-gradient-to-b from-blue-500 to-white ">
+    <div className=" flex md:flex-none  bg-[url('./bglogin.webp')]   h-[100vh] ">
       {false && <DebugMenu />}
-
       <div className="mx-auto max-w-[360px]">
         <div className="">
           <img src={koop} className="mx-auto" />
-          <p className="p-4 text-center text-gray-800 font-serif italic">
+          <p className="p-4 text-center text-white font-serif italic">
             1000 + des services et koops a votre pointe du doigts
           </p>
         </div>
 
-        <div className=" rounded-md shadow-md p-4 bg-white">
+        <div className=" rounded-md shadow-md p-4 bg-white mx-4 ">
           <div className="text-blue-500 text-xl ">
             Sign in with phone number
           </div>
@@ -104,7 +119,12 @@ export default function PageLogin() {
           {showOTP && (
             <div>
               <div>OTP</div>
-              <input type="text" maxLength={6} onChange={verifyOTP} />
+              <input
+                type="text"
+                maxLength={6}
+                onChange={verifyOTP}
+                className=" outline-0 hover:border-blue-500 focus:border-b-blue-600 p-2 border rounded-md border-gray-400 w-full"
+              />
             </div>
           )}
 
@@ -120,8 +140,21 @@ export default function PageLogin() {
           <div id="recaptcha-cont"></div>
         </div>
       </div>
-
-      <div className={` w-[0%] md:w-[50%] lg:w-[60%] bg-purple-500  `}></div>
+      <div
+        className={` flex flex-wrap overflow-hidden w-[0%] md:w-[50%] lg:w-[60%] bg-purple-500  `}
+      >
+        {[
+          images.map((im, i) => (
+            <div key={i} className=" flex-grow h-[120pt] w-[240pt] ">
+              <img
+                src={im.download_url}
+                className="  object-center"
+                height={30}
+              />
+            </div>
+          )),
+        ]}
+      </div>
     </div>
   );
 }
