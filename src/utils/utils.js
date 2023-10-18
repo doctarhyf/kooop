@@ -39,23 +39,6 @@ export const ROUTES = {
 export const COLLECTION_NAME = {
   KOOPS: "koops",
 };
-/*
-
-  <Link to={ROUTES.MY_ACCOUNT.path}>My Account</Link>
-          </li>
-          <li>
-            <Link to={ROUTES.LOOGIN.path}>Login</Link>
-          </li>
-          <li>
-            <Link to={ROUTES.LEGAL.path}>Legal</Link>
-          </li>
-          <li>
-            <Link to={ROUTES.SUBCRIPTION.path}>Subscription</Link>
-          </li>
-          <li>
-            <Link to={ROUTES.INTRO.path}>Intro</Link>
-
-*/
 
 export const clPageStyle =
   " max-w-[900px] overflow-hidden mx-auto min-h-[320pt]";

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { LoggedInUser, SignInWithPhoneNumber } from "../db/db";
+import { LoggedInUser, SignInWithPhoneNumber, UserExists } from "../db/db";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../utils/utils";
 import koop from "../assets/koop.png";
@@ -11,6 +11,7 @@ import key from "../assets/icons/key.png";
 import DebugMenu from "../comp/DebugMenu";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { auth } from "../db/fb.config";
+
 export default function PageLogin() {
   const [error, seterror] = useState(false);
   const [otp, setOTP] = useState("");
@@ -29,7 +30,7 @@ export default function PageLogin() {
     const pics = await resp.json();
 
     setimages(pics);
-    console.log(pics);
+    //console.log(pics);
   }
 
   const requestOTP = (e) => {
@@ -53,14 +54,10 @@ export default function PageLogin() {
           window.confirmationResult = confirmationResult;
         })
         .catch((error) => {
-          console.log(error);
+          //console.log(error);
         });
     }
   };
-
-  function userExistsInFirestore(user) {
-    return true;
-  }
 
   const verifyOTP = (e) => {
     seterror(false);
@@ -74,9 +71,9 @@ export default function PageLogin() {
         .then((result) => {
           seterror(false);
           const user = result.user;
-          console.log("user", user);
+          //console.log("user", user);
 
-          if (userExistsInFirestore(user)) {
+          if (UserExists(user)) {
             //login
           } else {
             //create new user
@@ -85,7 +82,7 @@ export default function PageLogin() {
         })
         .catch((error) => {
           seterror(error);
-          console.log("error => ", error);
+          // console.log("error => ", error);
         });
     }
   };
@@ -133,7 +130,8 @@ export default function PageLogin() {
                 } `}
               >
                 {error
-                  ? "OTP error please check the OTP in the SMS received"
+                  ? "OTP error please check the OTP in the SMS received.<br/>Error " +
+                    error
                   : "Please enter the OTP received by SMS"}
               </p>
             </div>
@@ -142,7 +140,7 @@ export default function PageLogin() {
           {/*  {!showOTP && ( */}
           <button
             disabled={otp.replace(" ", "").length !== 6 && showOTP}
-            className={` ${
+            className={` mr-4 ${
               showOTP && otp.replace(" ", "").length !== 6
                 ? "disabled:bg-gray-400 disabled:border-gray-600 disabled:text-gray-300"
                 : ""
